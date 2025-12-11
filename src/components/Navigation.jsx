@@ -168,6 +168,7 @@ const Navigation = () => {
                   initial="initial"
                   whileHover="hover"
                   whileTap="tap"
+                  aria-label={`Navigate to ${item.title} section`}
                   className={`
                     relative px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 flex items-center gap-2
                     ${isActive 

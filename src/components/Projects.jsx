@@ -257,6 +257,7 @@ const Projects = () => {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`View ${project.title} source code on GitHub`}
                         className="flex items-center justify-center gap-1 md:gap-1.5 px-2 md:px-3 py-2 md:py-2.5 bg-white text-neutral-900 rounded-full text-xs md:text-sm font-medium transition-all duration-300 hover:bg-teal-400 active:scale-95"
                         whileHover={!isMobile ? { scale: 1.03, y: -2 } : undefined}
                         whileTap={{ scale: 0.98 }}
@@ -269,6 +270,7 @@ const Projects = () => {
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`View ${project.title} live demo`}
                         className="flex items-center justify-center gap-1 md:gap-1.5 px-2 md:px-3 py-2 md:py-2.5 border border-neutral-700 text-neutral-300 rounded-full text-xs md:text-sm font-medium transition-all duration-300 hover:border-teal-500/50 hover:text-teal-400 active:scale-95"
                         whileHover={!isMobile ? { scale: 1.03, y: -2 } : undefined}
                         whileTap={{ scale: 0.98 }}
@@ -281,6 +283,7 @@ const Projects = () => {
                         href={project.youtubeDemo}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`Watch ${project.title} video demo on YouTube`}
                         className="flex items-center justify-center gap-1 md:gap-1.5 px-2 md:px-3 py-2 md:py-2.5 border border-teal-500/30 text-teal-400 rounded-full text-xs md:text-sm font-medium transition-all duration-300 hover:bg-teal-500/10 hover:border-teal-500/50 active:scale-95"
                         whileHover={!isMobile ? { scale: 1.03, y: -2 } : undefined}
                         whileTap={{ scale: 0.98 }}

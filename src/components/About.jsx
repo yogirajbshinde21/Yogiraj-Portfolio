@@ -24,7 +24,7 @@ const About = () => {
   
   // Intersection Observer to mount lanyard only once when About section is first visible
   useEffect(() => {
-    // Check if already mounted from localStorage
+    // Check if already mounted from sessionStorage
     const alreadyMounted = sessionStorage.getItem('lanyardMounted');
     if (alreadyMounted === 'true') {
       setShouldMountLanyard(true);
@@ -35,13 +35,16 @@ const About = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !shouldMountLanyard) {
-            setShouldMountLanyard(true);
-            sessionStorage.setItem('lanyardMounted', 'true');
+            // Small delay to prioritize initial page render
+            setTimeout(() => {
+              setShouldMountLanyard(true);
+              sessionStorage.setItem('lanyardMounted', 'true');
+            }, 300);
             observer.disconnect();
           }
         });
       },
-      { threshold: 0.1, rootMargin: '50px' }
+      { threshold: 0.2, rootMargin: '100px' } // More aggressive: load only when closer
     );
     
     if (lanyardRef.current) {

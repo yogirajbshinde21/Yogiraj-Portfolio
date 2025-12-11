@@ -83,6 +83,7 @@ const Footer = () => {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`Visit Yogiraj's ${link.name} profile`}
               className="p-3 transition-all duration-300 border rounded-full border-neutral-800 text-neutral-500 hover:text-teal-400 hover:border-teal-500/30"
             >
               {link.icon}
