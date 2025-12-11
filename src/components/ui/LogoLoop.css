@@ -1,0 +1,68 @@
+.logo-loop-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.logo-loop-container {
+  display: flex;
+  width: fit-content;
+  animation: scroll-left var(--duration) linear infinite;
+}
+
+.logo-loop-container.right {
+  animation: scroll-right var(--duration) linear infinite;
+}
+
+.logo-loop-container:hover {
+  animation-play-state: paused;
+}
+
+.logo-loop-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.logo-loop-item.scale-on-hover:hover {
+  transform: scale(1.15);
+}
+
+.logo-loop-fade-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.logo-loop-fade-overlay.left {
+  left: 0;
+  background: linear-gradient(to right, var(--fade-color), transparent);
+}
+
+.logo-loop-fade-overlay.right {
+  right: 0;
+  background: linear-gradient(to left, var(--fade-color), transparent);
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

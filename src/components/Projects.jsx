@@ -1,0 +1,337 @@
+import React, { useMemo, useState, useEffect } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { ExternalLink, Github, Play } from 'lucide-react';
+import { CardContainer, CardBody, CardItem } from './ui/3d-card-effect';
+
+const Projects = () => {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.1, margin: "-20px" });
+  
+  // Detect mobile devices for performance optimization
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
+  // Premium easing - smooth and subtle
+  const premiumEase = [0.16, 1, 0.3, 1];
+  
+  const projects = [
+    {
+      title: "Stockest",
+      subtitle: "AI-Powered Stock Market Simulator",
+      description: "A MERN stack platform for rural education with real-time stock trading simulation. Features ₹100,000 virtual money, live Upstox API data, and Socket.io updates.",
+      tech: ["React", "Node.js", "MongoDB", "Socket.io", "Gemini API"],
+      github: "https://github.com/yogirajbshinde21/StockEst",
+      live: "https://stockest-frontend.onrender.com/",
+      youtubeEmbed: "kvKPFyMe1ok",
+      youtubeDemo: "https://youtu.be/LsR1mf4Yy5I",
+    },
+    {
+      title: "ChatWise",
+      subtitle: "Smart Real-Time Chat Application",
+      description: "Full-stack MERN chat app with real-time Socket.io messaging and AI-powered summaries via Google Gemini.",
+      tech: ["React", "Node.js", "Socket.io", "Gemini API", "Cloudinary"],
+      github: "https://github.com/yogirajbshinde21/ChatWise",
+      live: "https://frontend-chatwise.onrender.com",
+      youtubeEmbed: "cCt4OlcW4kE",
+      youtubeDemo: "https://youtu.be/_jCPL32TysE",
+    },
+    {
+      title: "MealMatch",
+      subtitle: "Smart Food Delivery Platform",
+      description: "A modern MERN food delivery app with real-time price negotiation via Socket.IO and weather-based dynamic pricing.",
+      tech: ["React", "Node.js", "MongoDB", "Socket.io", "Weather API"],
+      github: "https://github.com/yogirajbshinde21/MealMatch",
+      live: "https://mealmatch-frontend.onrender.com",
+      youtubeEmbed: "cXCVoJwat38",
+      youtubeDemo: "https://youtu.be/lsf5adyrRJs",
+    },
+    {
+      title: "HomeDecore",
+      subtitle: "Flask Home Decor Platform",
+      description: "A Flask web application for home decor solutions with SQLite database and data visualization using Matplotlib.",
+      tech: ["Python", "Flask", "SQLAlchemy", "Bootstrap", "Matplotlib"],
+      github: "https://github.com/yogirajbshinde21/Home-Decore-Flask-Application",
+      live: "https://household-service-app-u1os.onrender.com/",
+      youtubeEmbed: "OS0eZOurWDk",
+      youtubeDemo: "https://youtu.be/3XePJHlE6Cc",
+    },
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: premiumEase },
+    },
+  };
+
+  // Generate randomized delays for masonry effect (80-140ms)
+  const randomDelays = useMemo(() => 
+    projects.map(() => 0.08 + Math.random() * 0.06), 
+    [projects.length]
+  );
+
+  // Masonry-style card entrance - simple opacity and transform only (GPU accelerated)
+  const cardVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 20
+    },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { 
+        duration: 0.4, 
+        delay: randomDelays[i] + i * 0.06,
+        ease: premiumEase 
+      },
+    }),
+  };
+
+  return (
+    <section ref={ref} id="projects" className="relative px-4 py-16 overflow-hidden sm:px-6 md:py-32 md:px-8 bg-neutral-900/50">
+      {/* Subtle background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-neutral-950 via-neutral-900/50 to-neutral-950" />
+      
+      <motion.div 
+        className="relative z-10 max-w-6xl mx-auto"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.1, margin: "-20px" }}
+      >
+        {/* Section Header */}
+        <motion.div variants={itemVariants} className="mb-10 text-center md:mb-16">
+          <span className="block mb-3 text-xs font-medium tracking-wider text-teal-400 uppercase md:text-sm md:mb-4">
+            Portfolio
+          </span>
+          <h2 className="text-3xl tracking-tight text-white font-editorial-ultralight sm:text-4xl md:text-6xl lg:text-7xl">
+            Featured Projects
+          </h2>
+          <p className="max-w-xl mx-auto mt-4 text-base md:mt-6 md:text-lg text-neutral-500">
+            A selection of my recent work
+          </p>
+        </motion.div>
+
+        {/* Projects Grid - Single column on mobile for better visibility */}
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+          {projects.map((project, idx) => {
+            // Wrap with 3D card only on desktop
+            const ProjectCard = () => (
+              <motion.div
+                custom={idx}
+                variants={cardVariants}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+                whileTap={isMobile ? { scale: 0.98 } : undefined}
+                className="group h-full"
+              >
+                <div 
+                  className="h-full overflow-hidden transition-all border rounded-xl md:rounded-2xl border-neutral-800 bg-neutral-900/30 hover:border-teal-500/20 duration-400 hover:shadow-lg hover:shadow-teal-500/5"
+                  style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
+                >
+                  {/* Video/Thumbnail Preview */}
+                  <a 
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative block overflow-hidden aspect-video bg-neutral-800"
+                  >
+                    {project.youtubeEmbed ? (
+                      isMobile ? (
+                        // Mobile: Show YouTube thumbnail instead of iframe for performance
+                        <div className="relative w-full h-full">
+                          <img
+                            src={`https://img.youtube.com/vi/${project.youtubeEmbed}/maxresdefault.jpg`}
+                            alt={project.title}
+                            className="object-cover w-full h-full"
+                            loading="lazy"
+                            onError={(e) => {
+                              // Fallback to hqdefault if maxres not available
+                              e.target.src = `https://img.youtube.com/vi/${project.youtubeEmbed}/hqdefault.jpg`;
+                            }}
+                          />
+                          {/* Play button overlay for mobile */}
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="flex items-center justify-center w-14 h-14 rounded-full bg-teal-500/90 backdrop-blur-sm">
+                              <Play className="w-6 h-6 text-white fill-white ml-0.5" />
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        // Desktop: Show iframe video
+                        <div className="w-full h-full">
+                          <iframe
+                            src={`https://www.youtube.com/embed/${project.youtubeEmbed}?autoplay=1&mute=1&loop=1&playlist=${project.youtubeEmbed}&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1`}
+                            className="object-cover w-full h-full"
+                            allow="autoplay; encrypted-media"
+                            loading="lazy"
+                            style={{ border: 'none', pointerEvents: 'none' }}
+                            title={project.title}
+                          />
+                        </div>
+                      )
+                    ) : (
+                      <div className="flex items-center justify-center w-full h-full bg-neutral-800">
+                        <Play className="w-12 h-12 text-neutral-600" />
+                      </div>
+                    )}
+                    {/* Overlay gradient */}
+                    <div 
+                      className="absolute inset-0 transition-opacity duration-300 pointer-events-none bg-gradient-to-t from-neutral-900 via-neutral-900/30 to-transparent opacity-60 group-hover:opacity-80"
+                    />
+                    {/* Hover overlay with view text - Desktop only */}
+                    {!isMobile && (
+                      <motion.div
+                        className="absolute inset-0 flex items-center justify-center bg-teal-500/10 backdrop-blur-sm"
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <span className="px-4 py-2 text-sm font-medium text-white border rounded-full bg-neutral-900/80 border-neutral-700">
+                          View Project
+                        </span>
+                      </motion.div>
+                    )}
+                  </a>
+
+                  {/* Content */}
+                  <div className="p-4 md:p-6">
+                    {/* Title with hover animation */}
+                    <h3 
+                      className="mb-1 text-xl text-white transition-colors duration-300 md:text-2xl font-editorial-regular group-hover:text-teal-400"
+                    >
+                      {project.title}
+                    </h3>
+                    <p className="mb-2 text-xs text-teal-400 md:text-sm md:mb-3">
+                      {project.subtitle}
+                    </p>
+                    
+                    {/* Description */}
+                    <p className="mb-3 text-xs leading-relaxed md:text-sm md:mb-4 text-neutral-400 line-clamp-2">
+                      {project.description}
+                    </p>
+
+                    {/* Tech Stack - Horizontal scroll on mobile */}
+                    <div className="flex gap-1.5 md:gap-2 mb-4 md:mb-6 overflow-x-auto pb-1 scrollbar-hide md:flex-wrap md:overflow-visible">
+                      {project.tech.map((tech, techIdx) => (
+                        <motion.span
+                          key={techIdx}
+                          className="flex-shrink-0 px-2 py-0.5 md:px-2.5 md:py-1 text-[10px] md:text-xs text-neutral-400 bg-neutral-800/50 rounded-full border border-neutral-700/50 hover:border-teal-500/30 hover:text-teal-400 transition-all duration-300"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                          transition={{ 
+                            duration: 0.4, 
+                            delay: randomDelays[idx] + idx * 0.1 + techIdx * 0.03,
+                            ease: premiumEase 
+                          }}
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
+
+                    {/* Action Buttons - Full width on mobile */}
+                    <div className="grid grid-cols-3 gap-2">
+                      <motion.a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-1 md:gap-1.5 px-2 md:px-3 py-2 md:py-2.5 bg-white text-neutral-900 rounded-full text-xs md:text-sm font-medium transition-all duration-300 hover:bg-teal-400 active:scale-95"
+                        whileHover={!isMobile ? { scale: 1.03, y: -2 } : undefined}
+                        whileTap={{ scale: 0.98 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <Github className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                        <span className="hidden sm:inline">Code</span>
+                      </motion.a>
+                      <motion.a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-1 md:gap-1.5 px-2 md:px-3 py-2 md:py-2.5 border border-neutral-700 text-neutral-300 rounded-full text-xs md:text-sm font-medium transition-all duration-300 hover:border-teal-500/50 hover:text-teal-400 active:scale-95"
+                        whileHover={!isMobile ? { scale: 1.03, y: -2 } : undefined}
+                        whileTap={{ scale: 0.98 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <ExternalLink className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                        <span className="hidden sm:inline">Live</span>
+                      </motion.a>
+                      <motion.a
+                        href={project.youtubeDemo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-1 md:gap-1.5 px-2 md:px-3 py-2 md:py-2.5 border border-teal-500/30 text-teal-400 rounded-full text-xs md:text-sm font-medium transition-all duration-300 hover:bg-teal-500/10 hover:border-teal-500/50 active:scale-95"
+                        whileHover={!isMobile ? { scale: 1.03, y: -2 } : undefined}
+                        whileTap={{ scale: 0.98 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <Play className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                        <span className="hidden sm:inline">Demo</span>
+                      </motion.a>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+
+            return isMobile ? (
+              <ProjectCard key={idx} />
+            ) : (
+              <CardContainer key={idx} className="py-0">
+                <CardBody>
+                  <ProjectCard />
+                </CardBody>
+              </CardContainer>
+            );
+          })}
+        </div>
+
+        {/* View More CTA with hover animation */}
+        <motion.div
+          variants={itemVariants}
+          className="mt-12 text-center"
+        >
+          <motion.a
+            href="https://github.com/yogirajbshinde21"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 transition-colors duration-300 text-neutral-400 hover:text-teal-400 group/link"
+            whileHover={{ x: 5 }}
+            transition={{ duration: 0.3 }}
+          >
+            <span className="text-sm">View more on GitHub</span>
+            <motion.span
+              animate={{ x: [0, 5, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <ExternalLink className="w-4 h-4" />
+            </motion.span>
+          </motion.a>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+};
+
+export default Projects;

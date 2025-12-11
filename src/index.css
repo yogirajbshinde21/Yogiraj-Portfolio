@@ -1,0 +1,779 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* PP Editorial Font Family */
+@font-face {
+  font-family: 'PP Editorial';
+  src: url('/editorial-new-font-family-1765350391-0/PPEditorialNew-Ultralight-BF644b21500d0c0.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Editorial';
+  src: url('/editorial-new-font-family-1765350391-0/PPEditorialNew-UltralightItalic-BF644b214ff1e9b.otf') format('opentype');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Editorial';
+  src: url('/editorial-new-font-family-1765350391-0/PPEditorialNew-Regular-BF644b214ff145f.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Editorial';
+  src: url('/editorial-new-font-family-1765350391-0/PPEditorialNew-Italic-BF644b214fb0c0a.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Editorial';
+  src: url('/editorial-new-font-family-1765350391-0/PPEditorialNew-Ultrabold-BF644b21500840c.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Editorial';
+  src: url('/editorial-new-font-family-1765350391-0/PPEditorialNew-UltraboldItalic-BF644b214faef01.otf') format('opentype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    /* Clean neutral color palette */
+    --background: 0 0% 100%;
+    --foreground: 220 9% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 9% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 9% 20%;
+    --primary: 220 9% 15%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 9% 96%;
+    --secondary-foreground: 220 9% 20%;
+    --muted: 220 9% 96%;
+    --muted-foreground: 220 9% 50%;
+    --accent: 187 72% 44%; /* Teal accent */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 9% 90%;
+    --input: 220 9% 90%;
+    --ring: 187 72% 44%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    /* Elegant dark palette with soft grays */
+    --background: 220 10% 6%;
+    --foreground: 220 9% 95%;
+    --card: 220 10% 8%;
+    --card-foreground: 220 9% 95%;
+    --popover: 220 10% 8%;
+    --popover-foreground: 220 9% 95%;
+    --primary: 220 9% 95%;
+    --primary-foreground: 220 10% 6%;
+    --secondary: 220 10% 12%;
+    --secondary-foreground: 220 9% 95%;
+    --muted: 220 10% 15%;
+    --muted-foreground: 220 9% 60%;
+    --accent: 187 72% 50%; /* Teal accent */
+    --accent-foreground: 220 10% 6%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 10% 18%;
+    --input: 220 10% 18%;
+    --ring: 187 72% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.7;
+  }
+}
+
+/* Custom cursor - hide default cursor on desktop */
+@media (hover: hover) and (pointer: fine) {
+  *,
+  *::before,
+  *::after {
+    cursor: none !important;
+  }
+  
+  html, body {
+    cursor: none !important;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Premium easing functions */
+:root {
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* GPU acceleration for smooth animations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimize animations for 60fps */
+[data-framer-animate],
+[style*="transform"],
+.motion-element {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* Typography utilities */
+.font-editorial {
+  font-family: 'PP Editorial', Georgia, serif;
+}
+
+.font-editorial-ultralight {
+  font-family: 'PP Editorial', Georgia, serif;
+  font-weight: 200;
+  letter-spacing: 0.02em;
+}
+
+.font-editorial-regular {
+  font-family: 'PP Editorial', Georgia, serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* Clean minimal scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--accent));
+}
+
+/* Background patterns - subtle */
+.bg-dot-pattern {
+  background-image: radial-gradient(hsl(var(--foreground) / 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(hsl(var(--foreground) / 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--foreground) / 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Elegant gradient text */
+.gradient-text {
+  @apply bg-gradient-to-r from-teal-500 via-teal-400 to-cyan-400 bg-clip-text text-transparent;
+}
+
+/* Subtle glassmorphism */
+.glass {
+  background: hsl(var(--card) / 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid hsl(var(--border) / 0.5);
+}
+
+.glass-subtle {
+  background: hsl(var(--card) / 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid hsl(var(--border) / 0.3);
+}
+
+/* Subtle glow effects */
+.glow-teal {
+  box-shadow: 0 0 40px hsl(var(--accent) / 0.15);
+}
+
+.glow-subtle {
+  box-shadow: 0 4px 40px hsl(var(--foreground) / 0.05);
+}
+
+/* Animation delays */
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animation-delay-600 {
+  animation-delay: 600ms;
+}
+
+/* Fade-in animation utility classes */
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Perspective for 3D effects */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth transition utility */
+.transition-smooth {
+  transition: all 0.3s ease;
+}
+
+/* Section spacing for clean layout */
+.section-padding {
+  @apply py-24 md:py-32 px-6 md:px-8;
+}
+
+/* Premium Animation Keyframes */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes blurIn {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+@keyframes progressFill {
+  from {
+    width: 0%;
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(var(--accent) / 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(var(--accent) / 0.4);
+  }
+}
+
+@keyframes parallaxFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes cursorTrail {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+/* Premium animation utility classes */
+.animate-scale-in {
+  animation: scaleIn 0.8s var(--ease-premium) forwards;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.8s var(--ease-premium) forwards;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.8s var(--ease-premium) forwards;
+}
+
+.animate-slide-up {
+  animation: slideInUp 0.6s var(--ease-premium) forwards;
+}
+
+.animate-blur-in {
+  animation: blurIn 0.8s var(--ease-premium) forwards;
+}
+
+.animate-bounce-in {
+  animation: bounceIn 0.8s var(--ease-bounce) forwards;
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* Stagger animation delays for premium effect */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+.stagger-7 { animation-delay: 0.7s; }
+.stagger-8 { animation-delay: 0.8s; }
+
+/* Premium hover transitions */
+.hover-lift {
+  transition: transform 0.3s var(--ease-premium), box-shadow 0.3s var(--ease-premium);
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Image hover zoom */
+.hover-zoom {
+  overflow: hidden;
+}
+
+.hover-zoom img {
+  transition: transform 0.6s var(--ease-premium);
+}
+
+.hover-zoom:hover img {
+  transform: scale(1.05);
+}
+
+/* Glassmorphism navbar on scroll */
+.nav-blur {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: hsl(var(--background) / 0.7);
+  transition: all 0.3s var(--ease-premium);
+}
+
+.nav-blur.scrolled {
+  backdrop-filter: blur(30px) saturate(200%);
+  -webkit-backdrop-filter: blur(30px) saturate(200%);
+  background: hsl(var(--background) / 0.85);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Cursor trail effect (desktop only) */
+@media (hover: hover) and (pointer: fine) {
+  .cursor-trail {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: hsl(var(--accent) / 0.6);
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: screen;
+    animation: cursorTrail 0.5s ease-out forwards;
+  }
+}
+
+/* Focus glow effect for inputs */
+.input-focus-glow {
+  transition: all 0.3s var(--ease-premium);
+}
+
+.input-focus-glow:focus {
+  box-shadow: 0 0 0 3px hsl(var(--accent) / 0.2), 0 0 20px hsl(var(--accent) / 0.15);
+}
+
+/* Floating label animation */
+.floating-label {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.3s var(--ease-premium);
+  pointer-events: none;
+}
+
+.floating-label.active,
+input:focus + .floating-label,
+textarea:focus + .floating-label {
+  top: 0;
+  transform: translateY(-50%) scale(0.85);
+  background: hsl(var(--background));
+  padding: 0 0.5rem;
+  color: hsl(var(--accent));
+}
+
+/* Premium card shadow on hover */
+.card-premium {
+  transition: all 0.4s var(--ease-premium);
+}
+
+.card-premium:hover {
+  transform: translateY(-6px);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 0 0 1px hsl(var(--accent) / 0.1);
+}
+
+/* Exit animation support */
+.exit-up {
+  animation: slideInUp 0.5s var(--ease-premium) reverse forwards;
+}
+
+.exit-fade {
+  animation: fadeIn 0.3s ease-out reverse forwards;
+}
+
+/* React Flow Custom Styles */
+.react-flow__edge-path {
+  stroke-width: 2 !important;
+  opacity: 0.8;
+}
+
+.react-flow__edge.animated .react-flow__edge-path {
+  stroke-dasharray: 5;
+  animation: dashdraw 0.5s linear infinite;
+}
+
+@keyframes dashdraw {
+  from {
+    stroke-dashoffset: 10;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.react-flow__edge:hover .react-flow__edge-path {
+  opacity: 1;
+  stroke-width: 3 !important;
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+.react-flow__node {
+  z-index: 10;
+}
+
+.react-flow__attribution {
+  display: none !important;
+}
+
+/* Enhance edge markers */
+.react-flow__arrowhead {
+  fill: currentColor;
+  opacity: 0.9;
+}
+
+.react-flow__edge:hover .react-flow__arrowhead {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px currentColor);
+}
+
+/* Turbo Flow Styles */
+.turbo-flow-container {
+  --bg-color: rgb(17, 17, 17);
+  --text-color: rgb(243, 244, 246);
+  --node-border-radius: 10px;
+  --node-box-shadow: 10px 0 15px rgba(42, 138, 246, 0.3),
+    -10px 0 15px rgba(233, 42, 103, 0.3);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.react-flow__node-turbo {
+  border-radius: var(--node-border-radius);
+  display: flex;
+  height: 70px;
+  min-width: 180px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+  box-shadow: var(--node-box-shadow);
+  cursor: grab;
+}
+
+.react-flow__node-turbo:active {
+  cursor: grabbing;
+}
+
+.react-flow__node-turbo .wrapper {
+  overflow: hidden;
+  display: flex;
+  padding: 2px;
+  position: relative;
+  border-radius: var(--node-border-radius);
+  flex-grow: 1;
+}
+
+.gradient:before {
+  content: '';
+  position: absolute;
+  padding-bottom: calc(100% * 1.41421356237);
+  width: calc(100% * 1.41421356237);
+  background: conic-gradient(
+    from -160deg at 50% 50%,
+    #e92a67 0deg,
+    #a853ba 120deg,
+    #2a8af6 240deg,
+    #e92a67 360deg
+  );
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 100%;
+}
+
+.react-flow__node-turbo.selected .wrapper.gradient:before {
+  content: '';
+  background: conic-gradient(
+    from -160deg at 50% 50%,
+    #e92a67 0deg,
+    #a853ba 120deg,
+    #2a8af6 240deg,
+    rgba(42, 138, 246, 0) 360deg
+  );
+  animation: spinner 4s linear infinite;
+  transform: translate(-50%, -50%) rotate(0deg);
+  z-index: -1;
+}
+
+@keyframes spinner {
+  100% {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
+}
+
+.react-flow__node-turbo .inner {
+  background: var(--bg-color);
+  padding: 14px 18px;
+  border-radius: var(--node-border-radius);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  position: relative;
+}
+
+.react-flow__node-turbo .icon {
+  margin-right: 8px;
+}
+
+.react-flow__node-turbo .body {
+  display: flex;
+  align-items: center;
+}
+
+.react-flow__node-turbo .node-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.react-flow__node-turbo .title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  color: #f3f4f6;
+}
+
+.react-flow__node-turbo .subtitle {
+  font-size: 11px;
+  color: #9ca3af;
+  line-height: 1;
+}
+
+.react-flow__node-turbo .cloud {
+  border-radius: 100%;
+  width: 32px;
+  height: 32px;
+  right: 0;
+  position: absolute;
+  top: 0;
+  transform: translate(50%, -50%);
+  display: flex;
+  transform-origin: center center;
+  padding: 2px;
+  overflow: hidden;
+  box-shadow: var(--node-box-shadow);
+  z-index: 1;
+}
+
+.react-flow__node-turbo .cloud div {
+  background-color: var(--bg-color);
+  flex-grow: 1;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.react-flow__node-turbo .cloud svg {
+  color: #a853ba;
+}
+
+.react-flow__handle {
+  opacity: 0;
+  width: 8px;
+  height: 8px;
+}
+
+.react-flow__handle.source {
+  right: -4px;
+}
+
+.react-flow__handle.target {
+  left: -4px;
+}
+
+.react-flow__node:focus,
+.react-flow__node:focus-visible {
+  outline: none;
+}
+
+.turbo-flow-container .react-flow__edge .react-flow__edge-path {
+  stroke: url(#edge-gradient);
+  stroke-width: 2;
+  stroke-opacity: 0.75;
+}
+
+.turbo-flow-container .react-flow__background {
+  background-color: var(--bg-color);
+}
