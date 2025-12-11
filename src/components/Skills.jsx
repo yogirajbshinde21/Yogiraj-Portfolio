@@ -90,7 +90,6 @@ const Skills = () => {
         { name: 'Git & GitHub', level: 'Expert' },
         { name: 'VS Code', level: 'Expert' },
         { name: 'Postman', level: 'Advanced' },
-        { name: 'GitHub Copilot', level: 'Advanced' },
       ]
     },
   ];

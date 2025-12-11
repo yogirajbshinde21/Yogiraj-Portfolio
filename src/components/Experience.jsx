@@ -11,7 +11,7 @@ const Experience = () => {
   
   const experiences = [
     {
-      title: "Nov 2024",
+      title: "Nov 2025",
       content: (
         <div>
           <div className="mb-6">
@@ -24,7 +24,7 @@ const Experience = () => {
                   Billions Strategies
                 </h3>
                 <p className="mb-1 text-sm text-teal-400">Full Stack Developer Intern</p>
-                <p className="text-xs text-neutral-500">Nov 2024 - Present</p>
+                <p className="text-xs text-neutral-500">Nov 2025 - Present</p>
               </div>
             </div>
             <ul className="mt-6 space-y-3">
@@ -52,7 +52,7 @@ const Experience = () => {
       ),
     },
     {
-      title: "Feb 2024",
+      title: "Feb 2025",
       content: (
         <div>
           <div className="mb-6">
@@ -65,7 +65,7 @@ const Experience = () => {
                   Edunet Foundation
                 </h3>
                 <p className="mb-1 text-sm text-teal-400">MERN Stack Developer Intern</p>
-                <p className="text-xs text-neutral-500">Feb 2024 - Mar 2024</p>
+                <p className="text-xs text-neutral-500">Feb 2025 - Mar 2025</p>
               </div>
             </div>
             <ul className="mt-6 space-y-3">
