@@ -10,7 +10,7 @@
   transform-origin: center;
   opacity: 0;
   transition: opacity 0.8s ease-out;
-  touch-action: none; /* Enable smooth dragging on mobile */
+  touch-action: pan-y; /* Allow vertical scrolling on mobile while enabling card drag */
 }
 
 .lanyard-wrapper.loaded {
@@ -21,6 +21,6 @@
 @media (max-width: 768px) {
   .lanyard-wrapper {
     height: 380px;
-    touch-action: none;
+    touch-action: pan-y; /* Allow vertical scrolling */
   }
 }
