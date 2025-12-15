@@ -12,7 +12,8 @@ function useCursorContext() {
 }
 
 function CursorProvider({ children, global = false }) {
-  const [isHovered, setIsHovered] = React.useState(false);
+  // Initialize isHovered to true for global mode since user is likely already on the page
+  const [isHovered, setIsHovered] = React.useState(global);
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
@@ -22,6 +23,8 @@ function CursorProvider({ children, global = false }) {
     const handleMouseMove = (e) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
+      // Ensure cursor is visible when mouse moves (handles initial load case)
+      if (!isHovered) setIsHovered(true);
     };
 
     const handleMouseEnter = () => setIsHovered(true);
@@ -36,7 +39,7 @@ function CursorProvider({ children, global = false }) {
       document.removeEventListener('mouseenter', handleMouseEnter);
       document.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [global, cursorX, cursorY]);
+  }, [global, cursorX, cursorY, isHovered]);
 
   const value = React.useMemo(
     () => ({

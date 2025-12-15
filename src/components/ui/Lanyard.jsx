@@ -238,6 +238,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
             <mesh position={[0, 0.47, 0.005]} geometry={roundedCardGeometry}>
               <meshPhysicalMaterial
                 map={profileTexture}
+                color="#cccccc"
                 map-anisotropy={16}
                 clearcoat={isMobile ? 0 : 0.5}
                 clearcoatRoughness={0.15}

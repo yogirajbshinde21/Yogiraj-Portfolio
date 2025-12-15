@@ -1,7 +1,8 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, useCallback } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ExternalLink, Github, Play } from 'lucide-react';
 import { CardContainer, CardBody, CardItem } from './ui/3d-card-effect';
+import ProjectReactionBar from './ui/ProjectReactionBar';
 
 const Projects = () => {
   const ref = React.useRef(null);
@@ -152,7 +153,7 @@ const Projects = () => {
                 >
                   {/* Video/Thumbnail Preview */}
                   <a 
-                    href={project.live}
+                    href={project.youtubeDemo}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="relative block overflow-hidden aspect-video bg-neutral-800"
@@ -209,7 +210,7 @@ const Projects = () => {
                         transition={{ duration: 0.3 }}
                       >
                         <span className="px-4 py-2 text-sm font-medium text-white border rounded-full bg-neutral-900/80 border-neutral-700">
-                          View Project
+                          Watch Demo
                         </span>
                       </motion.div>
                     )}
@@ -252,7 +253,7 @@ const Projects = () => {
                     </div>
 
                     {/* Action Buttons - Full width on mobile */}
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-2 gap-2">
                       <motion.a
                         href={project.github}
                         target="_blank"
@@ -279,19 +280,13 @@ const Projects = () => {
                         <ExternalLink className="w-3.5 h-3.5 md:w-4 md:h-4" />
                         <span className="hidden sm:inline">Live</span>
                       </motion.a>
-                      <motion.a
-                        href={project.youtubeDemo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Watch ${project.title} video demo on YouTube`}
-                        className="flex items-center justify-center gap-1 md:gap-1.5 px-2 md:px-3 py-2 md:py-2.5 border border-teal-500/30 text-teal-400 rounded-full text-xs md:text-sm font-medium transition-all duration-300 hover:bg-teal-500/10 hover:border-teal-500/50 active:scale-95"
-                        whileHover={!isMobile ? { scale: 1.03, y: -2 } : undefined}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <Play className="w-3.5 h-3.5 md:w-4 md:h-4" />
-                        <span className="hidden sm:inline">Demo</span>
-                      </motion.a>
+                    </div>
+
+                    {/* Project Reactions */}
+                    <div className="pt-4 mt-4 border-t md:pt-5 md:mt-5 border-neutral-800/50">
+                      <ProjectReactionBar 
+                        projectId={project.title.toLowerCase().replace(/\s+/g, '-')}
+                      />
                     </div>
                   </div>
                 </div>

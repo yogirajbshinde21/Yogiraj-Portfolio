@@ -16,14 +16,14 @@ const Contact = lazy(() => import('./components/Contact'));
 const LoadingSpinner = () => (
   <div className="flex items-center justify-center min-h-[50vh] bg-neutral-950">
     <div className="relative">
-      <div className="w-12 h-12 border-2 border-neutral-800 border-t-teal-500 rounded-full animate-spin" />
+      <div className="w-12 h-12 border-2 rounded-full border-neutral-800 border-t-teal-500 animate-spin" />
     </div>
   </div>
 );
 
 function App() {
   return (
-    <CursorProvider global={true} className="relative bg-neutral-950 min-h-screen dark">
+    <CursorProvider global={true} className="relative min-h-screen bg-neutral-950 dark">
       {/* Custom Cursor - Hidden on touch devices */}
       <div className="hidden md:block">
         <Cursor />
