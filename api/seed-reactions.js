@@ -37,22 +37,15 @@ export default async function handler(req, res) {
     for (const project of PROJECTS) {
       const countsKey = `reactions:${project.id}`;
       
-      // Check if already seeded
-      const existing = await kv.hgetall(countsKey);
-      if (existing && Object.keys(existing).length > 0) {
-        results.push({
-          project: project.name,
-          status: 'skipped',
-          message: 'Already has data',
-          counts: existing
-        });
-        continue;
-      }
+      // Get existing counts
+      const existing = await kv.hgetall(countsKey) || {};
 
-      // Generate random counts for each reaction
+      // Generate random counts and ADD to existing (so it boosts current counts)
       const counts = {};
       for (const reaction of REACTIONS) {
-        counts[reaction] = getRandomCount();
+        const currentCount = parseInt(existing[reaction] || 0);
+        const additionalCount = getRandomCount();
+        counts[reaction] = currentCount + additionalCount;
       }
 
       // Save to KV
@@ -61,7 +54,14 @@ export default async function handler(req, res) {
       results.push({
         project: project.name,
         status: 'seeded',
-        counts: counts
+        previousCounts: existing,
+        newCounts: counts,
+        added: {
+          impressive: counts.impressive - (parseInt(existing.impressive) || 0),
+          innovative: counts.innovative - (parseInt(existing.innovative) || 0),
+          technical: counts.technical - (parseInt(existing.technical) || 0),
+          creative: counts.creative - (parseInt(existing.creative) || 0),
+        }
       });
     }
 
