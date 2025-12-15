@@ -7,6 +7,7 @@ import {
   CursorContainer as CursorContainerPrimitive,
 } from '@/components/animate-ui/primitives/animate/cursor';
 import { cn } from '@/lib/utils';
+import { useTheme } from '@/context/ThemeContext';
 
 function CursorProvider({ global, children, className, ...props }) {
   return (
@@ -19,10 +20,12 @@ function CursorProvider({ global, children, className, ...props }) {
 }
 
 function Cursor({ className, ...props }) {
+  const { theme } = useTheme();
+  
   return (
     <CursorPrimitive {...props}>
       <svg
-        className={cn('size-6 text-white', className)}
+        className={cn('size-6 transition-colors duration-500', theme === 'dark' ? 'text-white' : 'text-stone-800', className)}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 40 40"
       >
@@ -42,6 +45,8 @@ function CursorFollow({
   alignOffset = 5,
   ...props
 }) {
+  const { theme } = useTheme();
+  
   return (
     <CursorFollowPrimitive
       sideOffset={sideOffset}
@@ -50,7 +55,10 @@ function CursorFollow({
     >
       <div
         className={cn(
-          'bg-white rounded-md text-neutral-900 px-2.5 py-1 text-sm font-medium shadow-lg',
+          'rounded-md px-2.5 py-1 text-sm font-medium shadow-lg transition-colors duration-500',
+          theme === 'dark' 
+            ? 'bg-white text-neutral-900' 
+            : 'bg-stone-800 text-stone-50',
           className,
         )}
       >

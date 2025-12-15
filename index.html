@@ -1,9 +1,50 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en" class="dark theme-transitioning">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Critical: Prevent theme flash & setup butter-smooth transitions -->
+    <script>
+      (function() {
+        // Get theme synchronously before any paint
+        var theme = localStorage.getItem('theme') || 'dark';
+        var html = document.documentElement;
+        
+        // Apply theme instantly (no transitions during initial load)
+        html.className = theme + ' theme-transitioning';
+        
+        // Set color-scheme for native browser support
+        html.style.colorScheme = theme;
+        
+        // Remove transition block after first contentful paint
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', enableTransitions);
+        } else {
+          enableTransitions();
+        }
+        
+        function enableTransitions() {
+          // Double RAF ensures we're past the first paint
+          requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+              html.classList.remove('theme-transitioning');
+            });
+          });
+        }
+      })();
+    </script>
+    
+    <!-- Inline critical CSS for theme to prevent FOUC -->
+    <style>
+      .theme-transitioning, .theme-transitioning *, .theme-transitioning *::before, .theme-transitioning *::after {
+        transition-duration: 0ms !important;
+        transition-delay: 0ms !important;
+      }
+      .dark { color-scheme: dark; background-color: #0a0a0b; color: #f5f5f5; }
+      .light { color-scheme: light; background-color: #f8fafc; color: #1a1a1a; }
+    </style>
     
     <!-- SEO Meta Tags -->
     <title>Yogiraj Shinde | MERN Stack Developer & Data Science Student</title>
@@ -16,14 +57,14 @@
     <meta property="og:url" content="https://yogiraj-portfolio.vercel.app/" />
     <meta property="og:title" content="Yogiraj Shinde | MERN Stack Developer & Data Science Student" />
     <meta property="og:description" content="Full-stack MERN developer with 3+ years of experience. Built 10+ production apps with React, Node.js, MongoDB. BS Data Science @ IITM." />
-    <meta property="og:image" content="https://yogiraj-portfolio.vercel.app/og-image.jpg" />
+    <meta property="og:image" content="https://yogiraj-portfolio.vercel.app/og-image.png" />
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://yogiraj-portfolio.vercel.app/" />
     <meta property="twitter:title" content="Yogiraj Shinde | MERN Stack Developer & Data Science Student" />
     <meta property="twitter:description" content="Full-stack MERN developer with 3+ years of experience. Built 10+ production apps with React, Node.js, MongoDB. BS Data Science @ IITM." />
-    <meta property="twitter:image" content="https://yogiraj-portfolio.vercel.app/og-image.jpg" />
+    <meta property="twitter:image" content="https://yogiraj-portfolio.vercel.app/og-image.png" />
     
     <!-- Favicon -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

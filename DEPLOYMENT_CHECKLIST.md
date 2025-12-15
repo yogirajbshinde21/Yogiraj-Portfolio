@@ -21,7 +21,7 @@
 Replace `https://yogirajshinde.com/` with your actual domain:
 ```html
 <meta property="og:url" content="https://YOUR-DOMAIN.com/" />
-<meta property="og:image" content="https://YOUR-DOMAIN.com/og-image.jpg" />
+<meta property="og:image" content="https://YOUR-DOMAIN.com/og-image.png" />
 ```
 
 ### 2. Optional: Create Better Favicon (5 minutes)
@@ -34,7 +34,7 @@ Replace `https://yogirajshinde.com/` with your actual domain:
 - Use Canva.com (free)
 - Template size: 1200x630px
 - Include: Your name, title, tech stack icons
-- Save as `og-image.jpg` in `/public/`
+- Save as `og-image.png` in `/public/`
 
 ### 4. Test Locally
 ```bash

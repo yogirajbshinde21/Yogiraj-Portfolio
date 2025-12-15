@@ -29,12 +29,12 @@ The included `favicon.svg` has your initials "YS". You can:
    - Your profile photo
    - Tech stack icons (React, Node, MongoDB, etc.)
    - Teal/dark background matching portfolio theme
-4. Export as `og-image.jpg`
+4. Export as `og-image.png`
 5. Place in `/public/` folder
 
 ### Quick Alternative:
 Use your existing profile pic:
-1. Copy `src/Yogiraj Pic.jpg` to `public/og-image.jpg`
+1. Copy `src/Yogiraj Pic.jpg` to `public/og-image.png`
 2. This works but a custom designed OG image is better
 
 ## 3. Update URLs in index.html

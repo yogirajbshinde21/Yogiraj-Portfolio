@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Home, User, Briefcase, Code, FolderOpen, Mail } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 const Navigation = () => {
+  const { theme } = useTheme();
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [activeSection, setActiveSection] = useState('home');
@@ -112,15 +114,19 @@ const Navigation = () => {
       className="fixed top-6 left-1/2 z-50"
     >
       <motion.div 
-        className="px-3 py-2.5 rounded-full border"
+        className="px-3 py-2.5 rounded-full border transition-colors duration-700"
         style={{
           backdropFilter: `blur(${blurAmount}px)`,
           WebkitBackdropFilter: `blur(${blurAmount}px)`,
-          backgroundColor: scrolled ? 'rgba(10, 10, 10, 0.85)' : 'rgba(10, 10, 10, 0.5)',
-          borderColor: scrolled ? 'rgba(255, 255, 255, 0.12)' : 'rgba(255, 255, 255, 0.06)',
-          boxShadow: scrolled 
-            ? '0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06) inset' 
-            : '0 4px 16px rgba(0, 0, 0, 0.3)',
+          backgroundColor: theme === 'dark'
+            ? (scrolled ? 'rgba(10, 10, 10, 0.85)' : 'rgba(10, 10, 10, 0.5)')
+            : (scrolled ? 'rgba(250, 245, 235, 0.9)' : 'rgba(250, 245, 235, 0.7)'),
+          borderColor: theme === 'dark'
+            ? (scrolled ? 'rgba(255, 255, 255, 0.12)' : 'rgba(255, 255, 255, 0.06)')
+            : (scrolled ? 'rgba(120, 113, 108, 0.2)' : 'rgba(120, 113, 108, 0.12)'),
+          boxShadow: theme === 'dark'
+            ? (scrolled ? '0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06) inset' : '0 4px 16px rgba(0, 0, 0, 0.3)')
+            : (scrolled ? '0 8px 32px rgba(120, 113, 108, 0.15), 0 0 0 1px rgba(255, 251, 245, 0.8) inset' : '0 4px 16px rgba(120, 113, 108, 0.08)'),
           transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
         }}
         animate={{
@@ -155,9 +161,15 @@ const Navigation = () => {
                       mass: 0.8
                     }}
                     style={{
-                      background: 'linear-gradient(135deg, rgba(45, 212, 191, 0.15) 0%, rgba(45, 212, 191, 0.05) 100%)',
-                      border: '1px solid rgba(45, 212, 191, 0.3)',
-                      boxShadow: '0 0 20px rgba(45, 212, 191, 0.1)',
+                      background: theme === 'dark'
+                        ? 'linear-gradient(135deg, rgba(45, 212, 191, 0.15) 0%, rgba(45, 212, 191, 0.05) 100%)'
+                        : 'linear-gradient(135deg, rgba(20, 184, 166, 0.15) 0%, rgba(20, 184, 166, 0.05) 100%)',
+                      border: theme === 'dark'
+                        ? '1px solid rgba(45, 212, 191, 0.3)'
+                        : '1px solid rgba(20, 184, 166, 0.35)',
+                      boxShadow: theme === 'dark'
+                        ? '0 0 20px rgba(45, 212, 191, 0.1)'
+                        : '0 0 20px rgba(20, 184, 166, 0.1)',
                       zIndex: 0
                     }}
                   />
@@ -172,8 +184,8 @@ const Navigation = () => {
                   className={`
                     relative px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 flex items-center gap-2
                     ${isActive 
-                      ? 'text-teal-400' 
-                      : 'text-neutral-400 hover:text-neutral-200'
+                      ? (theme === 'dark' ? 'text-teal-400' : 'text-teal-600') 
+                      : (theme === 'dark' ? 'text-neutral-400 hover:text-neutral-200' : 'text-stone-600 hover:text-stone-800')
                     }
                   `}
                   style={{ position: 'relative', zIndex: 1 }}
@@ -199,7 +211,9 @@ const Navigation = () => {
       <motion.div
         className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-8 rounded-full pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(45, 212, 191, 0.15) 0%, transparent 70%)',
+          background: theme === 'dark'
+            ? 'radial-gradient(ellipse at center, rgba(45, 212, 191, 0.15) 0%, transparent 70%)'
+            : 'radial-gradient(ellipse at center, rgba(20, 184, 166, 0.15) 0%, transparent 70%)',
           filter: 'blur(10px)'
         }}
         animate={{

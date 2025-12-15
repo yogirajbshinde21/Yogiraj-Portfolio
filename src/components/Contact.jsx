@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Mail, Linkedin, Github, Twitter, MapPin, Send, ArrowRight } from 'lucide-react';
 import Toast from './ui/Toast';
+import { useTheme } from '../context/ThemeContext';
 
 const Contact = () => {
+  const { theme } = useTheme();
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: false, amount: 0.2, margin: "-50px" });
   
@@ -144,9 +146,15 @@ const Contact = () => {
         />
       )}
 
-      <section ref={ref} id="contact" className="relative px-4 py-16 overflow-hidden sm:px-6 md:py-32 md:px-8 bg-neutral-950">
+      <section ref={ref} id="contact" className={`relative px-4 py-16 overflow-hidden sm:px-6 md:py-32 md:px-8 transition-colors duration-700 ${
+        theme === 'dark' ? 'bg-neutral-950' : 'bg-stone-50'
+      }`}>
       {/* Subtle background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 via-neutral-950 to-neutral-950" />
+      <div className={`absolute inset-0 transition-colors duration-700 ${
+        theme === 'dark'
+          ? 'bg-gradient-to-b from-neutral-900/50 via-neutral-950 to-neutral-950'
+          : 'bg-gradient-to-b from-amber-50/30 via-stone-50 to-stone-50'
+      }`} />
       
       <motion.div 
         className="relative z-10 max-w-5xl mx-auto"
@@ -157,13 +165,19 @@ const Contact = () => {
       >
         {/* Section Header */}
         <motion.div variants={itemVariants} className="mb-10 text-center md:mb-16">
-          <span className="block mb-3 text-xs font-medium tracking-wider text-teal-400 uppercase md:text-sm md:mb-4">
+          <span className={`block mb-3 text-xs font-medium tracking-wider uppercase md:text-sm md:mb-4 transition-colors duration-700 ${
+            theme === 'dark' ? 'text-teal-400' : 'text-teal-600'
+          }`}>
             Let's Connect
           </span>
-          <h2 className="text-3xl tracking-tight text-white font-editorial-ultralight sm:text-4xl md:text-6xl lg:text-7xl">
+          <h2 className={`text-3xl tracking-tight font-editorial-ultralight sm:text-4xl md:text-6xl lg:text-7xl transition-colors duration-700 ${
+            theme === 'dark' ? 'text-white' : 'text-stone-800'
+          }`}>
             Get In Touch
           </h2>
-          <p className="max-w-xl mx-auto mt-4 text-base md:mt-6 md:text-lg text-neutral-500">
+          <p className={`max-w-xl mx-auto mt-4 text-base md:mt-6 md:text-lg transition-colors duration-700 ${
+            theme === 'dark' ? 'text-neutral-500' : 'text-stone-500'
+          }`}>
             Have a project in mind? Let's create something extraordinary together.
           </p>
         </motion.div>
@@ -172,11 +186,17 @@ const Contact = () => {
           {/* Contact Form */}
           <motion.div variants={itemVariants}>
             <motion.div 
-              className="p-8 transition-all duration-500 border rounded-2xl border-neutral-800 bg-neutral-900/30 hover:border-neutral-700"
+              className={`p-8 transition-all duration-500 border rounded-2xl ${
+                theme === 'dark'
+                  ? 'border-neutral-800 bg-neutral-900/30 hover:border-neutral-700'
+                  : 'border-stone-300 bg-stone-100/80 hover:border-stone-400'
+              }`}
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.4, ease: premiumEase }}
             >
-              <h3 className="mb-6 text-2xl text-white font-editorial-regular">Send a Message</h3>
+              <h3 className={`mb-6 text-2xl font-editorial-regular transition-colors duration-700 ${
+                theme === 'dark' ? 'text-white' : 'text-stone-800'
+              }`}>Send a Message</h3>
               
               <form onSubmit={handleSubmit} className="space-y-5">
                 {/* Name Field */}
@@ -190,7 +210,9 @@ const Contact = () => {
                   <motion.label 
                     htmlFor="name" 
                     className={`block mb-2 text-sm transition-all duration-300 ${
-                      focusedField === 'name' ? 'text-teal-400' : 'text-neutral-400'
+                      focusedField === 'name' 
+                        ? (theme === 'dark' ? 'text-teal-400' : 'text-teal-600')
+                        : (theme === 'dark' ? 'text-neutral-400' : 'text-stone-500')
                     }`}
                     animate={{ x: focusedField === 'name' ? 5 : 0 }}
                     transition={{ duration: 0.3 }}
@@ -206,11 +228,19 @@ const Contact = () => {
                     onFocus={() => setFocusedField('name')}
                     onBlur={() => setFocusedField(null)}
                     required
-                    className="w-full px-4 py-3 text-white transition-all duration-300 border bg-neutral-800/50 border-neutral-700 rounded-xl placeholder-neutral-500 focus:outline-none input-focus-glow"
+                    className={`w-full px-4 py-3 transition-all duration-300 border rounded-xl focus:outline-none ${
+                      theme === 'dark'
+                        ? 'text-white bg-neutral-800/50 border-neutral-700 placeholder-neutral-500'
+                        : 'text-stone-800 bg-stone-50/80 border-stone-300 placeholder-stone-400'
+                    }`}
                     placeholder="Your name"
                     animate={{ 
-                      borderColor: focusedField === 'name' ? 'rgb(45, 212, 191)' : 'rgb(64, 64, 64)',
-                      boxShadow: focusedField === 'name' ? '0 0 20px rgba(45, 212, 191, 0.15)' : 'none'
+                      borderColor: focusedField === 'name' 
+                        ? (theme === 'dark' ? 'rgb(45, 212, 191)' : 'rgb(20, 184, 166)')
+                        : (theme === 'dark' ? 'rgb(64, 64, 64)' : 'rgb(214, 211, 209)'),
+                      boxShadow: focusedField === 'name' 
+                        ? (theme === 'dark' ? '0 0 20px rgba(45, 212, 191, 0.15)' : '0 0 20px rgba(20, 184, 166, 0.15)')
+                        : 'none'
                     }}
                     transition={{ duration: 0.3 }}
                   />
@@ -227,7 +257,9 @@ const Contact = () => {
                   <motion.label 
                     htmlFor="email" 
                     className={`block mb-2 text-sm transition-all duration-300 ${
-                      focusedField === 'email' ? 'text-teal-400' : 'text-neutral-400'
+                      focusedField === 'email' 
+                        ? (theme === 'dark' ? 'text-teal-400' : 'text-teal-600')
+                        : (theme === 'dark' ? 'text-neutral-400' : 'text-stone-500')
                     }`}
                     animate={{ x: focusedField === 'email' ? 5 : 0 }}
                     transition={{ duration: 0.3 }}
@@ -243,11 +275,19 @@ const Contact = () => {
                     onFocus={() => setFocusedField('email')}
                     onBlur={() => setFocusedField(null)}
                     required
-                    className="w-full px-4 py-3 text-white transition-all duration-300 border bg-neutral-800/50 border-neutral-700 rounded-xl placeholder-neutral-500 focus:outline-none input-focus-glow"
+                    className={`w-full px-4 py-3 transition-all duration-300 border rounded-xl focus:outline-none ${
+                      theme === 'dark'
+                        ? 'text-white bg-neutral-800/50 border-neutral-700 placeholder-neutral-500'
+                        : 'text-stone-800 bg-stone-50/80 border-stone-300 placeholder-stone-400'
+                    }`}
                     placeholder="your.email@example.com"
                     animate={{ 
-                      borderColor: focusedField === 'email' ? 'rgb(45, 212, 191)' : 'rgb(64, 64, 64)',
-                      boxShadow: focusedField === 'email' ? '0 0 20px rgba(45, 212, 191, 0.15)' : 'none'
+                      borderColor: focusedField === 'email' 
+                        ? (theme === 'dark' ? 'rgb(45, 212, 191)' : 'rgb(20, 184, 166)')
+                        : (theme === 'dark' ? 'rgb(64, 64, 64)' : 'rgb(214, 211, 209)'),
+                      boxShadow: focusedField === 'email' 
+                        ? (theme === 'dark' ? '0 0 20px rgba(45, 212, 191, 0.15)' : '0 0 20px rgba(20, 184, 166, 0.15)')
+                        : 'none'
                     }}
                     transition={{ duration: 0.3 }}
                   />
@@ -264,7 +304,9 @@ const Contact = () => {
                   <motion.label 
                     htmlFor="message" 
                     className={`block mb-2 text-sm transition-all duration-300 ${
-                      focusedField === 'message' ? 'text-teal-400' : 'text-neutral-400'
+                      focusedField === 'message' 
+                        ? (theme === 'dark' ? 'text-teal-400' : 'text-teal-600')
+                        : (theme === 'dark' ? 'text-neutral-400' : 'text-stone-500')
                     }`}
                     animate={{ x: focusedField === 'message' ? 5 : 0 }}
                     transition={{ duration: 0.3 }}
@@ -280,11 +322,19 @@ const Contact = () => {
                     onBlur={() => setFocusedField(null)}
                     required
                     rows={5}
-                    className="w-full px-4 py-3 text-white transition-all duration-300 border resize-none bg-neutral-800/50 border-neutral-700 rounded-xl placeholder-neutral-500 focus:outline-none input-focus-glow"
+                    className={`w-full px-4 py-3 transition-all duration-300 border resize-none rounded-xl focus:outline-none ${
+                      theme === 'dark'
+                        ? 'text-white bg-neutral-800/50 border-neutral-700 placeholder-neutral-500'
+                        : 'text-stone-800 bg-stone-50/80 border-stone-300 placeholder-stone-400'
+                    }`}
                     placeholder="Tell me about your project..."
                     animate={{ 
-                      borderColor: focusedField === 'message' ? 'rgb(45, 212, 191)' : 'rgb(64, 64, 64)',
-                      boxShadow: focusedField === 'message' ? '0 0 20px rgba(45, 212, 191, 0.15)' : 'none'
+                      borderColor: focusedField === 'message' 
+                        ? (theme === 'dark' ? 'rgb(45, 212, 191)' : 'rgb(20, 184, 166)')
+                        : (theme === 'dark' ? 'rgb(64, 64, 64)' : 'rgb(214, 211, 209)'),
+                      boxShadow: focusedField === 'message' 
+                        ? (theme === 'dark' ? '0 0 20px rgba(45, 212, 191, 0.15)' : '0 0 20px rgba(20, 184, 166, 0.15)')
+                        : 'none'
                     }}
                     transition={{ duration: 0.3 }}
                   />
@@ -298,7 +348,11 @@ const Contact = () => {
                   animate={isInView ? "visible" : "hidden"}
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex items-center justify-center w-full gap-2 px-6 py-3 text-sm font-medium transition-all duration-300 bg-white rounded-full text-neutral-900 hover:bg-teal-400 disabled:opacity-50"
+                  className={`flex items-center justify-center w-full gap-2 px-6 py-3 text-sm font-medium transition-all duration-300 rounded-full disabled:opacity-50 ${
+                    theme === 'dark'
+                      ? 'bg-white text-neutral-900 hover:bg-teal-400'
+                      : 'bg-stone-800 text-stone-50 hover:bg-teal-600'
+                  }`}
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ duration: 0.2 }}
@@ -306,7 +360,9 @@ const Contact = () => {
                   {isSubmitting ? (
                     <>
                       <motion.div 
-                        className="w-4 h-4 border-2 rounded-full border-neutral-900 border-t-transparent"
+                        className={`w-4 h-4 border-2 rounded-full border-t-transparent ${
+                          theme === 'dark' ? 'border-neutral-900' : 'border-white'
+                        }`}
                         animate={{ rotate: 360 }}
                         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                       />
@@ -343,19 +399,35 @@ const Contact = () => {
           {/* Contact Info */}
           <motion.div variants={itemVariants} className="space-y-6">
             {/* Location */}
-            <div className="p-6 border rounded-2xl border-neutral-800 bg-neutral-900/30">
+            <div className={`p-6 border rounded-2xl transition-colors duration-700 ${
+              theme === 'dark' 
+                ? 'border-neutral-800 bg-neutral-900/30'
+                : 'border-stone-300 bg-stone-100/80'
+            }`}>
               <div className="flex items-center gap-3 mb-3">
-                <div className="p-2.5 rounded-xl bg-neutral-800 text-teal-400">
+                <div className={`p-2.5 rounded-xl transition-colors duration-700 ${
+                  theme === 'dark' ? 'bg-neutral-800 text-teal-400' : 'bg-stone-200 text-teal-600'
+                }`}>
                   <MapPin className="w-5 h-5" />
                 </div>
-                <h3 className="text-xl text-white font-editorial-regular">Location</h3>
+                <h3 className={`text-xl font-editorial-regular transition-colors duration-700 ${
+                  theme === 'dark' ? 'text-white' : 'text-stone-800'
+                }`}>Location</h3>
               </div>
-              <p className="ml-12 text-neutral-400">Mumbai, Maharashtra, India</p>
+              <p className={`ml-12 transition-colors duration-700 ${
+                theme === 'dark' ? 'text-neutral-400' : 'text-stone-500'
+              }`}>Mumbai, Maharashtra, India</p>
             </div>
 
             {/* Social Links */}
-            <div className="p-6 border rounded-2xl border-neutral-800 bg-neutral-900/30">
-              <h3 className="mb-6 text-xl text-white font-editorial-regular">Connect With Me</h3>
+            <div className={`p-6 border rounded-2xl transition-colors duration-700 ${
+              theme === 'dark' 
+                ? 'border-neutral-800 bg-neutral-900/30'
+                : 'border-stone-300 bg-stone-100/80'
+            }`}>
+              <h3 className={`mb-6 text-xl font-editorial-regular transition-colors duration-700 ${
+                theme === 'dark' ? 'text-white' : 'text-stone-800'
+              }`}>Connect With Me</h3>
               <div className="grid grid-cols-2 gap-3">
                 {socialLinks.map((link, idx) => (
                   <motion.a
@@ -365,31 +437,49 @@ const Contact = () => {
                     rel="noopener noreferrer"
                     whileHover={{ y: -2 }}
                     transition={{ duration: 0.2 }}
-                    className="flex items-center gap-3 p-4 transition-all duration-300 border rounded-xl border-neutral-800 bg-neutral-800/30 hover:border-teal-500/30 hover:bg-neutral-800/50 group"
+                    className={`flex items-center gap-3 p-4 transition-all duration-300 border rounded-xl group ${
+                      theme === 'dark'
+                        ? 'border-neutral-800 bg-neutral-800/30 hover:border-teal-500/30 hover:bg-neutral-800/50'
+                        : 'border-stone-300 bg-stone-200/50 hover:border-teal-400/50 hover:bg-stone-200/80'
+                    }`}
                   >
-                    <span className="transition-colors duration-300 text-neutral-400 group-hover:text-teal-400">
+                    <span className={`transition-colors duration-300 ${
+                      theme === 'dark' 
+                        ? 'text-neutral-400 group-hover:text-teal-400'
+                        : 'text-stone-500 group-hover:text-teal-600'
+                    }`}>
                       {link.icon}
                     </span>
-                    <span className="text-sm text-neutral-300">{link.name}</span>
+                    <span className={`text-sm transition-colors duration-700 ${
+                      theme === 'dark' ? 'text-neutral-300' : 'text-stone-600'
+                    }`}>{link.name}</span>
                   </motion.a>
                 ))}
               </div>
             </div>
 
             {/* Quick Info */}
-            <div className="p-6 border rounded-2xl border-neutral-800 bg-neutral-900/30">
-              <h3 className="mb-4 text-xl text-white font-editorial-regular">Quick Info</h3>
-              <div className="space-y-3 text-sm text-neutral-400">
+            <div className={`p-6 border rounded-2xl transition-colors duration-700 ${
+              theme === 'dark' 
+                ? 'border-neutral-800 bg-neutral-900/30'
+                : 'border-stone-300 bg-stone-100/80'
+            }`}>
+              <h3 className={`mb-4 text-xl font-editorial-regular transition-colors duration-700 ${
+                theme === 'dark' ? 'text-white' : 'text-stone-800'
+              }`}>Quick Info</h3>
+              <div className={`space-y-3 text-sm transition-colors duration-700 ${
+                theme === 'dark' ? 'text-neutral-400' : 'text-stone-500'
+              }`}>
                 <p className="flex items-center gap-2">
-                  <ArrowRight className="w-4 h-4 text-teal-500" />
+                  <ArrowRight className={`w-4 h-4 ${theme === 'dark' ? 'text-teal-500' : 'text-teal-500'}`} />
                   Open to full‑time & freelance
                 </p>
                 <p className="flex items-center gap-2">
-                  <ArrowRight className="w-4 h-4 text-teal-500" />
+                  <ArrowRight className={`w-4 h-4 ${theme === 'dark' ? 'text-teal-500' : 'text-teal-500'}`} />
                   Prefer email or LinkedIn for opportunities
                 </p>
                 <p className="flex items-center gap-2">
-                  <ArrowRight className="w-4 h-4 text-teal-500" />
+                  <ArrowRight className={`w-4 h-4 ${theme === 'dark' ? 'text-teal-500' : 'text-teal-500'}`} />
                   Typically replies within 24 hours
                 </p>
               </div>

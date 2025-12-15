@@ -98,6 +98,29 @@
     --input: 220 10% 18%;
     --ring: 187 72% 50%;
   }
+
+  .light {
+    /* Premium light theme palette */
+    --background: 210 20% 98%;
+    --foreground: 220 9% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 9% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 9% 15%;
+    --primary: 220 9% 15%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 9% 96%;
+    --secondary-foreground: 220 9% 15%;
+    --muted: 220 9% 96%;
+    --muted-foreground: 220 9% 45%;
+    --accent: 217 91% 60%; /* Blue accent for light theme */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 9% 88%;
+    --input: 220 9% 88%;
+    --ring: 217 91% 60%;
+  }
 }
 
 @layer base {
@@ -156,12 +179,135 @@ html {
   perspective: 1000px;
 }
 
+/* ===== ULTRA-SMOOTH THEME TRANSITION SYSTEM ===== */
+/* Use native color-scheme for instant browser-level color switching */
+:root {
+  color-scheme: light dark;
+  /* Custom easing for butter-smooth feel */
+  --theme-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --theme-duration: 280ms;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+.light {
+  color-scheme: light;
+}
+
+/* CSS Containment for rendering optimization */
+section,
+article,
+aside {
+  contain: layout style;
+}
+
+/* GPU-accelerated layer promotion for smooth transitions */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Smooth theme transitions on key structural elements only */
+html:not(.theme-transitioning) body,
+html:not(.theme-transitioning) main,
+html:not(.theme-transitioning) section,
+html:not(.theme-transitioning) header,
+html:not(.theme-transitioning) footer,
+html:not(.theme-transitioning) nav,
+html:not(.theme-transitioning) .theme-transition {
+  transition: 
+    background-color var(--theme-duration) var(--theme-ease),
+    color var(--theme-duration) var(--theme-ease),
+    border-color var(--theme-duration) var(--theme-ease),
+    box-shadow var(--theme-duration) var(--theme-ease);
+}
+
+/* Override individual transition-colors classes to use our optimized values */
+html:not(.theme-transitioning) [class*="transition-colors"] {
+  transition-duration: var(--theme-duration) !important;
+  transition-timing-function: var(--theme-ease) !important;
+}
+
+/* CRITICAL: During theme transition, use instant switch for zero lag */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition-duration: 0ms !important;
+  transition-delay: 0ms !important;
+}
+
+/* Butter-smooth fade-in after instant switch */
+html.theme-smooth-transition body,
+html.theme-smooth-transition main,
+html.theme-smooth-transition section,
+html.theme-smooth-transition header,
+html.theme-smooth-transition footer,
+html.theme-smooth-transition nav,
+html.theme-smooth-transition [class*="transition-colors"] {
+  transition: 
+    background-color var(--theme-duration) var(--theme-ease),
+    color var(--theme-duration) var(--theme-ease),
+    border-color var(--theme-duration) var(--theme-ease) !important;
+}
+
+/* Ensure heavy elements are never transitioned - prevents jank */
+canvas,
+video,
+iframe,
+svg,
+img,
+.no-theme-transition {
+  transition: none !important;
+}
+
+/* Optimize backdrop-filter elements during transition */
+html.theme-transitioning [class*="backdrop-blur"],
+html.theme-transitioning [class*="backdrop-filter"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ===== ADVANCED RENDERING OPTIMIZATIONS ===== */
+/* Content-visibility for off-screen sections (major performance boost) */
+section:not(:first-of-type) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
+
+/* Layer promotion for animated elements */
+.animate-spin,
+[class*="animate-"] {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Reduce paint areas during theme switch */
+html.theme-transitioning section {
+  contain: strict;
+}
+
+/* Force GPU compositing for smooth color transitions */
+html.theme-smooth-transition section,
+html.theme-smooth-transition header,
+html.theme-smooth-transition footer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
 /* Optimize animations for 60fps */
 [data-framer-animate],
-[style*="transform"],
 .motion-element {
   will-change: transform, opacity;
   transform: translateZ(0);
+}
+
+/* Remove will-change from static elements - only use during animation */
+.will-change-auto {
+  will-change: auto;
 }
 
 /* Typography utilities */

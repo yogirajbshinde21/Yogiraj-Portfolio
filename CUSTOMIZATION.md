@@ -393,20 +393,20 @@ fontSize: {
   <meta property="og:url" content="https://yourwebsite.com/" />
   <meta property="og:title" content="Your Name | Portfolio" />
   <meta property="og:description" content="Your description" />
-  <meta property="og:image" content="https://yourwebsite.com/og-image.jpg" />
+  <meta property="og:image" content="https://yourwebsite.com/og-image.png" />
   
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://yourwebsite.com/" />
   <meta property="twitter:title" content="Your Name | Portfolio" />
   <meta property="twitter:description" content="Your description" />
-  <meta property="twitter:image" content="https://yourwebsite.com/og-image.jpg" />
+  <meta property="twitter:image" content="https://yourwebsite.com/og-image.png" />
 </head>
 ```
 
 ### Create OG Image
 1. Design 1200x630px image
-2. Add to `public/og-image.jpg`
+2. Add to `public/og-image.png`
 3. Update meta tags
 
 ### Sitemap (Optional)

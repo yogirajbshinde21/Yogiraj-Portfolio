@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { Renderer, Camera, Geometry, Program, Mesh } from 'ogl';
+import { useTheme } from '../../context/ThemeContext';
 
 import './Particles.css';
 
 const defaultColors = ['#ffffff', '#ffffff', '#ffffff'];
+const defaultLightColors = ['#1a1a1a', '#2a2a2a', '#3a3a3a'];
 
 const hexToRgb = hex => {
   hex = hex.replace(/^#/, '');
@@ -102,6 +104,7 @@ const Particles = ({
 }) => {
   const containerRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0 });
+  const { theme } = useTheme();
 
   useEffect(() => {
     const container = containerRef.current;
@@ -143,7 +146,12 @@ const Particles = ({
     const positions = new Float32Array(count * 3);
     const randoms = new Float32Array(count * 4);
     const colors = new Float32Array(count * 3);
-    const palette = particleColors && particleColors.length > 0 ? particleColors : defaultColors;
+    
+    // Use theme-appropriate colors
+    const basePalette = theme === 'dark' 
+      ? (particleColors && particleColors.length > 0 ? particleColors : defaultColors)
+      : defaultLightColors;
+    const palette = basePalette;
 
     for (let i = 0; i < count; i++) {
       let x, y, z, len;
@@ -235,7 +243,8 @@ const Particles = ({
     sizeRandomness,
     cameraDistance,
     disableRotation,
-    pixelRatio
+    pixelRatio,
+    theme
   ]);
 
   return <div ref={containerRef} className={`particles-container ${className || ''}`} />;
