@@ -100,13 +100,13 @@ const ReactionButton = ({
       aria-pressed={isActive}
       className={`
         relative flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 md:py-2.5
-        rounded-full border transition-all duration-300
+        rounded-full border transition-all duration-300 cursor-pointer
         focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900
         ${isActive 
           ? 'border-teal-500/50 bg-teal-500/10 shadow-[0_0_12px_rgba(20,184,166,0.3)]' 
           : 'border-neutral-700/50 bg-neutral-800/30 hover:border-teal-500/30 hover:bg-neutral-800/50'
         }
-        ${(disabled || isLoading) ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
+        ${(disabled || isLoading) ? 'cursor-not-allowed opacity-50' : ''}
       `}
       whileHover={!disabled && !isLoading ? { scale: 1.05, y: -2 } : {}}
       whileTap={!disabled && !isLoading ? { scale: 0.95 } : {}}

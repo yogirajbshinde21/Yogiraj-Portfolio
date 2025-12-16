@@ -1,7 +1,7 @@
-import React, { useMemo, useState, useEffect, useCallback } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ExternalLink, Github, Play } from 'lucide-react';
-import { CardContainer, CardBody, CardItem } from './ui/3d-card-effect';
+import SpotlightCard from './ui/SpotlightCard';
 import ProjectReactionBar from './ui/ProjectReactionBar';
 import { useTheme } from '../context/ThemeContext';
 
@@ -159,7 +159,7 @@ const Projects = () => {
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
                 whileTap={isMobile ? { scale: 0.98 } : undefined}
-                className="group h-full"
+                className="h-full group"
               >
                 <div 
                   className={`h-full overflow-hidden transition-all border rounded-xl md:rounded-2xl duration-400 hover:shadow-lg ${
@@ -174,7 +174,7 @@ const Projects = () => {
                     href={project.youtubeDemo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative block overflow-hidden aspect-video bg-neutral-800"
+                    className="relative block overflow-hidden aspect-video bg-neutral-800 group/video"
                   >
                     {project.youtubeEmbed ? (
                       isMobile ? (
@@ -191,8 +191,8 @@ const Projects = () => {
                             }}
                           />
                           {/* Play button overlay for mobile */}
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="flex items-center justify-center w-14 h-14 rounded-full bg-teal-500/90 backdrop-blur-sm">
+                          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <div className="flex items-center justify-center rounded-full w-14 h-14 bg-teal-500/90 backdrop-blur-sm">
                               <Play className="w-6 h-6 text-white fill-white ml-0.5" />
                             </div>
                           </div>
@@ -219,19 +219,16 @@ const Projects = () => {
                     <div 
                       className={`absolute inset-0 transition-opacity duration-300 pointer-events-none bg-gradient-to-t via-30% to-transparent ${
                         theme === 'dark' 
-                          ? 'from-neutral-900 via-neutral-900/30 opacity-60 group-hover:opacity-80'
-                          : 'from-stone-100 via-stone-100/30 opacity-50 group-hover:opacity-70'
+                          ? 'from-neutral-900 via-neutral-900/30 opacity-60 group-hover/video:opacity-80'
+                          : 'from-stone-100 via-stone-100/30 opacity-50 group-hover/video:opacity-70'
                       }`}
                     />
                     {/* Hover overlay with view text - Desktop only */}
                     {!isMobile && (
-                      <motion.div
-                        className={`absolute inset-0 flex items-center justify-center backdrop-blur-sm ${
+                      <div
+                        className={`absolute inset-0 flex items-center justify-center backdrop-blur-sm opacity-0 group-hover/video:opacity-100 transition-opacity duration-300 pointer-events-none ${
                           theme === 'dark' ? 'bg-teal-500/10' : 'bg-teal-500/10'
                         }`}
-                        initial={{ opacity: 0 }}
-                        whileHover={{ opacity: 1 }}
-                        transition={{ duration: 0.3 }}
                       >
                         <span className={`px-4 py-2 text-sm font-medium border rounded-full ${
                           theme === 'dark'
@@ -240,7 +237,7 @@ const Projects = () => {
                         }`}>
                           Watch Demo
                         </span>
-                      </motion.div>
+                      </div>
                     )}
                   </a>
 
@@ -294,46 +291,42 @@ const Projects = () => {
 
                     {/* Action Buttons - Full width on mobile */}
                     <div className="grid grid-cols-2 gap-2">
-                      <motion.a
+                      <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`View ${project.title} source code on GitHub`}
-                        className={`flex items-center justify-center gap-1 md:gap-1.5 px-2 md:px-3 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 active:scale-95 ${
+                        className={`flex items-center justify-center gap-1 md:gap-1.5 px-2 md:px-3 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 hover:scale-[1.03] hover:-translate-y-0.5 active:scale-95 cursor-pointer ${
                           theme === 'dark'
                             ? 'bg-white text-neutral-900 hover:bg-teal-400'
                             : 'bg-stone-800 text-stone-50 hover:bg-teal-600'
                         }`}
-                        whileHover={!isMobile ? { scale: 1.03, y: -2 } : undefined}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ duration: 0.2 }}
                       >
                         <Github className="w-3.5 h-3.5 md:w-4 md:h-4" />
                         <span className="hidden sm:inline">Code</span>
-                      </motion.a>
-                      <motion.a
+                      </a>
+                      <a
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`View ${project.title} live demo`}
-                        className={`flex items-center justify-center gap-1 md:gap-1.5 px-2 md:px-3 py-2 md:py-2.5 border rounded-full text-xs md:text-sm font-medium transition-all duration-300 active:scale-95 ${
+                        className={`flex items-center justify-center gap-1 md:gap-1.5 px-2 md:px-3 py-2 md:py-2.5 border rounded-full text-xs md:text-sm font-medium transition-all duration-300 hover:scale-[1.03] hover:-translate-y-0.5 active:scale-95 cursor-pointer ${
                           theme === 'dark'
                             ? 'border-neutral-700 text-neutral-300 hover:border-teal-500/50 hover:text-teal-400'
                             : 'border-stone-400 text-stone-600 hover:border-teal-500/50 hover:text-teal-600'
                         }`}
-                        whileHover={!isMobile ? { scale: 1.03, y: -2 } : undefined}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ duration: 0.2 }}
                       >
                         <ExternalLink className="w-3.5 h-3.5 md:w-4 md:h-4" />
                         <span className="hidden sm:inline">Live</span>
-                      </motion.a>
+                      </a>
                     </div>
 
                     {/* Project Reactions */}
-                    <div className={`pt-4 mt-4 border-t md:pt-5 md:mt-5 transition-colors duration-700 ${
-                      theme === 'dark' ? 'border-neutral-800/50' : 'border-stone-300/80'
-                    }`}>
+                    <div 
+                      className={`pt-4 mt-4 border-t md:pt-5 md:mt-5 transition-colors duration-700 ${
+                        theme === 'dark' ? 'border-neutral-800/50' : 'border-stone-300/80'
+                      }`}
+                    >
                       <ProjectReactionBar 
                         projectId={project.title.toLowerCase().replace(/\s+/g, '-')}
                       />
@@ -346,11 +339,13 @@ const Projects = () => {
             return isMobile ? (
               <ProjectCard key={idx} />
             ) : (
-              <CardContainer key={idx} className="py-0">
-                <CardBody>
-                  <ProjectCard />
-                </CardBody>
-              </CardContainer>
+              <SpotlightCard 
+                key={idx} 
+                className="h-full"
+                spotlightColor={theme === 'dark' ? 'rgba(20, 184, 166, 0.15)' : 'rgba(20, 184, 166, 0.1)'}
+              >
+                <ProjectCard />
+              </SpotlightCard>
             );
           })}
         </div>
