@@ -25,7 +25,7 @@ function Cursor({ className, ...props }) {
   return (
     <CursorPrimitive {...props}>
       <svg
-        className={cn('size-6 transition-colors duration-500', theme === 'dark' ? 'text-white' : 'text-stone-800', className)}
+        className={cn('size-6 transition-colors duration-500', theme === 'dark' ? 'text-white' : 'text-[#3D3229]', className)}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 40 40"
       >
@@ -58,7 +58,7 @@ function CursorFollow({
           'rounded-md px-2.5 py-1 text-sm font-medium shadow-lg transition-colors duration-500',
           theme === 'dark' 
             ? 'bg-white text-neutral-900' 
-            : 'bg-stone-800 text-stone-50',
+            : 'bg-[#3D3229] text-[#FAF6F1]',
           className,
         )}
       >

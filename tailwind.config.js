@@ -59,7 +59,7 @@ export default {
           900: '#171717',
           950: '#0a0a0a',
         },
-        // Teal accent color
+        // Teal accent color (for dark mode)
         teal: {
           50: '#f0fdfa',
           100: '#ccfbf1',
@@ -72,6 +72,32 @@ export default {
           800: '#115e59',
           900: '#134e4a',
           950: '#042f2e',
+        },
+        // Warm palette for light mode
+        warm: {
+          50: '#FAF6F1',   // Primary background
+          100: '#F3EDE4',  // Secondary background
+          200: '#EBE3D9',  // Tertiary/hover background
+          300: '#E5DCD1',  // Light border
+          400: '#D4C9BC',  // Medium border
+          500: '#C4B8A8',  // Muted elements
+          600: '#8C7B6B',  // Muted text
+          700: '#6B5D4D',  // Secondary text
+          800: '#5C4D3D',  // Tag text
+          900: '#3D3229',  // Primary text
+        },
+        // Terracotta accent for light mode
+        terracotta: {
+          50: '#FDF5F0',
+          100: '#FAE8DE',
+          200: '#F5D0BD',
+          300: '#E8B08A',
+          400: '#D4A574',  // Secondary accent (amber/caramel)
+          500: '#B8704B',  // Primary accent
+          600: '#9A5C3A',  // Primary accent hover
+          700: '#7A4A2F',
+          800: '#5D3824',
+          900: '#40271A',
         },
       },
       letterSpacing: {

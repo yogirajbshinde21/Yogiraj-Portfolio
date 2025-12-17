@@ -59,14 +59,14 @@ const Hero = () => {
 
   return (
     <section id="home" className={`relative w-full min-h-screen overflow-hidden transition-colors duration-700 ${
-      theme === 'dark' ? 'bg-neutral-950' : 'bg-gradient-to-br from-stone-50 via-amber-50/30 to-orange-50/20'
+      theme === 'dark' ? 'bg-neutral-950' : 'bg-[#FAF6F1]'
     }`}>
       {/* Particles Background - Optimized for mobile, full interactivity on desktop */}
       <div className="absolute inset-0 z-[1]">
         <Particles
           particleColors={theme === 'dark' 
             ? ['#ffffff', '#ffffff', '#f8fafc', '#e2e8f0', '#cbd5e1']
-            : ['#44403c', '#57534e', '#78716c', '#a8a29e', '#d6d3d1']
+            : ['#3D3229', '#6B5D4D', '#8C7B6B', '#B8704B', '#D4C9BC']
           }
           particleCount={isMobile ? 80 : 250}
           particleSpread={isMobile ? 8 : 10}
@@ -86,7 +86,7 @@ const Hero = () => {
       <div className={`absolute inset-0 z-[2] pointer-events-none transition-opacity duration-700 ${
         theme === 'dark'
           ? 'bg-gradient-to-b from-transparent via-neutral-950/10 to-neutral-950/40'
-          : 'bg-gradient-to-b from-transparent via-stone-50/10 to-amber-50/40'
+          : 'bg-gradient-to-b from-transparent via-[#FAF6F1]/10 to-[#F3EDE4]/40'
       }`} />
       
       {/* Subtle dot pattern with parallax */}
@@ -114,7 +114,7 @@ const Hero = () => {
           >
             <motion.h1 
               className={`mb-4 text-4xl leading-none tracking-tight pointer-events-none select-none font-editorial-ultralight sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl md:mb-6 transition-colors duration-700 ${
-                theme === 'dark' ? 'text-white' : 'text-stone-800'
+                theme === 'dark' ? 'text-white' : 'text-[#3D3229]'
               }`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -127,7 +127,7 @@ const Hero = () => {
               className={`w-16 h-px mx-auto mb-6 pointer-events-none md:w-24 md:mb-8 transition-all duration-700 ${
                 theme === 'dark' 
                   ? 'bg-gradient-to-r from-transparent via-teal-500 to-transparent'
-                  : 'bg-gradient-to-r from-transparent via-teal-600 to-transparent'
+                  : 'bg-gradient-to-r from-transparent via-[#B8704B] to-transparent'
               }`}
               initial={{ scaleX: 0, opacity: 0 }}
               animate={{ scaleX: 1, opacity: 1 }}
@@ -136,7 +136,7 @@ const Hero = () => {
             
             <motion.div 
               className={`flex flex-wrap items-center justify-center gap-2 text-base font-light pointer-events-none select-none sm:gap-3 md:text-xl lg:text-2xl transition-colors duration-700 ${
-                theme === 'dark' ? 'text-neutral-400' : 'text-stone-600'
+                theme === 'dark' ? 'text-neutral-400' : 'text-[#6B5D4D]'
               }`}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -151,7 +151,7 @@ const Hero = () => {
                   exit={{ opacity: 0, y: -20, filter: 'blur(10px)' }}
                   transition={{ duration: 0.5, ease: premiumEase }}
                   className={`font-normal transition-colors duration-700 ${
-                    theme === 'dark' ? 'text-teal-400' : 'text-teal-600'
+                    theme === 'dark' ? 'text-teal-400' : 'text-[#B8704B]'
                   }`}
                 >
                   {titles[currentTitle]}
@@ -166,7 +166,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.5, ease: premiumEase }}
             className={`max-w-md px-4 mx-auto mb-8 text-sm leading-relaxed pointer-events-none select-none sm:px-0 md:mb-12 md:text-lg transition-colors duration-700 ${
-              theme === 'dark' ? 'text-neutral-500' : 'text-stone-500'
+              theme === 'dark' ? 'text-neutral-500' : 'text-[#6B5D4D]'
             }`}
           >
             3+ Years Building Web Apps · 10+ Projects Shipped
@@ -184,7 +184,7 @@ const Hero = () => {
               className={`w-full px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 rounded-full pointer-events-auto sm:w-auto sm:px-8 group active:scale-95 ${
                 theme === 'dark'
                   ? 'bg-white text-neutral-900 hover:bg-teal-400 hover:text-neutral-900 hover:shadow-lg hover:shadow-teal-500/20'
-                  : 'bg-stone-800 text-stone-50 hover:bg-teal-600 hover:shadow-lg hover:shadow-teal-500/30'
+                  : 'bg-[#3D3229] text-[#FAF6F1] hover:bg-[#B8704B] hover:shadow-lg hover:shadow-[#B8704B]/30'
               }`}
               whileHover={!isMobile ? { scale: 1.05, y: -2 } : undefined}
               whileTap={{ scale: 0.98 }}
@@ -200,7 +200,7 @@ const Hero = () => {
               className={`w-full px-6 py-3 text-sm font-medium tracking-wide text-center transition-all duration-300 border rounded-full pointer-events-auto sm:w-auto sm:px-8 active:scale-95 ${
                 theme === 'dark'
                   ? 'border-neutral-700 text-neutral-300 hover:border-teal-500/50 hover:text-teal-400'
-                  : 'border-stone-400 text-stone-700 hover:border-teal-500 hover:text-teal-600'
+                  : 'border-[#D4C9BC] text-[#3D3229] hover:border-[#B8704B] hover:text-[#B8704B] hover:bg-[#EBE3D9]/50'
               }`}
               whileHover={!isMobile ? { scale: 1.05, y: -2 } : undefined}
               whileTap={{ scale: 0.98 }}
@@ -214,7 +214,7 @@ const Hero = () => {
               className={`w-full px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 border rounded-full pointer-events-auto sm:w-auto sm:px-8 active:scale-95 ${
                 theme === 'dark'
                   ? 'border-neutral-700 text-neutral-300 hover:border-teal-500/50 hover:text-teal-400'
-                  : 'border-stone-400 text-stone-700 hover:border-teal-500 hover:text-teal-600'
+                  : 'border-[#D4C9BC] text-[#3D3229] hover:border-[#B8704B] hover:text-[#B8704B] hover:bg-[#EBE3D9]/50'
               }`}
               whileHover={!isMobile ? { scale: 1.05, y: -2 } : undefined}
               whileTap={{ scale: 0.98 }}
@@ -236,12 +236,12 @@ const Hero = () => {
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className={`flex justify-center w-5 h-8 pt-2 border rounded-full transition-colors duration-700 ${
-              theme === 'dark' ? 'border-neutral-600' : 'border-stone-400'
+              theme === 'dark' ? 'border-neutral-600' : 'border-[#D4C9BC]'
             }`}
           >
             <motion.div 
               className={`w-0.5 h-2 rounded-full transition-colors duration-700 ${
-                theme === 'dark' ? 'bg-neutral-500' : 'bg-stone-500'
+                theme === 'dark' ? 'bg-neutral-500' : 'bg-[#B8704B]'
               }`}
               animate={{ opacity: [0.3, 1, 0.3], scaleY: [0.8, 1, 0.8] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}

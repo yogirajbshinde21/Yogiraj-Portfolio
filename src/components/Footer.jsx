@@ -16,7 +16,7 @@ const Footer = () => {
 
   return (
     <footer className={`relative border-t transition-colors duration-700 ${
-      theme === 'dark' ? 'bg-neutral-950 border-neutral-800' : 'bg-stone-50 border-stone-300'
+      theme === 'dark' ? 'bg-neutral-950 border-neutral-800' : 'bg-[#FAF6F1] border-[#E5DCD1]'
     }`}>
       <div className="max-w-5xl px-6 py-16 mx-auto md:px-8">
         <div className="grid grid-cols-1 gap-12 mb-12 md:grid-cols-3">
@@ -28,12 +28,12 @@ const Footer = () => {
             viewport={{ once: true }}
           >
             <h3 className={`mb-4 text-2xl font-editorial-ultralight transition-colors duration-700 ${
-              theme === 'dark' ? 'text-white' : 'text-stone-800'
+              theme === 'dark' ? 'text-white' : 'text-[#3D3229]'
             }`}>
               Yogiraj Shinde
             </h3>
             <p className={`text-sm leading-relaxed transition-colors duration-700 ${
-              theme === 'dark' ? 'text-neutral-500' : 'text-stone-500'
+              theme === 'dark' ? 'text-neutral-500' : 'text-[#8C7B6B]'
             }`}>
               MERN Stack Developer & Data Science Enthusiast. Building the future, one line of code at a time.
             </p>
@@ -47,7 +47,7 @@ const Footer = () => {
             viewport={{ once: true }}
           >
             <h4 className={`mb-4 text-sm font-medium tracking-wider uppercase transition-colors duration-700 ${
-              theme === 'dark' ? 'text-neutral-400' : 'text-stone-500'
+              theme === 'dark' ? 'text-neutral-400' : 'text-[#8C7B6B]'
             }`}>Quick Links</h4>
             <ul className="space-y-2">
               {navLinks.map((link) => (
@@ -55,7 +55,7 @@ const Footer = () => {
                   <a
                     href={`#${link.toLowerCase()}`}
                     className={`text-sm transition-colors duration-300 ${
-                      theme === 'dark' ? 'text-neutral-500 hover:text-teal-400' : 'text-stone-500 hover:text-teal-600'
+                      theme === 'dark' ? 'text-neutral-500 hover:text-teal-400' : 'text-[#8C7B6B] hover:text-[#B8704B]'
                     }`}
                   >
                     {link}
@@ -73,10 +73,10 @@ const Footer = () => {
             viewport={{ once: true }}
           >
             <h4 className={`mb-4 text-sm font-medium tracking-wider uppercase transition-colors duration-700 ${
-              theme === 'dark' ? 'text-neutral-400' : 'text-stone-500'
+              theme === 'dark' ? 'text-neutral-400' : 'text-[#8C7B6B]'
             }`}>Get In Touch</h4>
             <div className={`space-y-2 text-sm transition-colors duration-700 ${
-              theme === 'dark' ? 'text-neutral-500' : 'text-stone-500'
+              theme === 'dark' ? 'text-neutral-500' : 'text-[#8C7B6B]'
             }`}>
               <p>jobsforyogiraj21@gmail.com</p>
               <p>Mumbai, Maharashtra, India</p>
@@ -103,7 +103,7 @@ const Footer = () => {
               className={`p-3 transition-all duration-300 border rounded-full ${
                 theme === 'dark'
                   ? 'border-neutral-800 text-neutral-500 hover:text-teal-400 hover:border-teal-500/30'
-                  : 'border-stone-300 text-stone-500 hover:text-teal-600 hover:border-teal-500/30'
+                  : 'border-[#E5DCD1] text-[#8C7B6B] hover:text-[#B8704B] hover:border-[#B8704B]/30'
               }`}
             >
               {link.icon}
@@ -118,15 +118,15 @@ const Footer = () => {
           transition={{ duration: 0.5, delay: 0.4 }}
           viewport={{ once: true }}
           className={`pt-8 text-center border-t transition-colors duration-700 ${
-            theme === 'dark' ? 'border-neutral-800' : 'border-stone-300'
+            theme === 'dark' ? 'border-neutral-800' : 'border-[#E5DCD1]'
           }`}
         >
           <p className={`flex items-center justify-center gap-2 text-sm transition-colors duration-700 ${
-            theme === 'dark' ? 'text-neutral-600' : 'text-stone-500'
+            theme === 'dark' ? 'text-neutral-600' : 'text-[#8C7B6B]'
           }`}>
             © 2025 Yogiraj Shinde. Built with{' '}
             <Heart className={`w-3.5 h-3.5 transition-colors duration-700 ${
-              theme === 'dark' ? 'text-teal-500' : 'text-teal-600'
+              theme === 'dark' ? 'text-teal-500' : 'text-[#B8704B]'
             }`} />{' '}
             using React
           </p>

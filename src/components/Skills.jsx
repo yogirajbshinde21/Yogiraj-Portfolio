@@ -145,13 +145,13 @@ const Skills = () => {
     
     return (
       <div className={`relative h-1 overflow-hidden rounded-full transition-colors duration-700 ${
-        theme === 'dark' ? 'bg-neutral-800' : 'bg-stone-300'
+        theme === 'dark' ? 'bg-neutral-800' : 'bg-[#E5DCD1]'
       }`}>
         <motion.div
           className={`absolute inset-y-0 left-0 rounded-full ${
             theme === 'dark' 
               ? 'bg-gradient-to-r from-teal-500 to-cyan-400'
-              : 'bg-gradient-to-r from-teal-500 to-cyan-500'
+              : 'bg-gradient-to-r from-[#B8704B] to-[#D4A574]'
           }`}
           initial={{ width: 0 }}
           animate={isActive ? { width: `${percent}%` } : { width: 0 }}
@@ -159,7 +159,7 @@ const Skills = () => {
         />
         <motion.span
           className={`absolute right-0 text-xs font-medium -top-6 transition-colors duration-700 ${
-            theme === 'dark' ? 'text-teal-400' : 'text-teal-600'
+            theme === 'dark' ? 'text-teal-400' : 'text-[#B8704B]'
           }`}
           initial={{ opacity: 0 }}
           animate={isActive ? { opacity: 1 } : { opacity: 0 }}
@@ -173,13 +173,13 @@ const Skills = () => {
 
   return (
     <section ref={ref} id="skills" className={`relative px-4 py-16 overflow-hidden sm:px-6 md:py-32 md:px-8 transition-colors duration-700 ${
-      theme === 'dark' ? 'bg-neutral-950' : 'bg-stone-50'
+      theme === 'dark' ? 'bg-neutral-950' : 'bg-[#FAF6F1]'
     }`}>
       {/* Subtle background */}
       <div className={`absolute inset-0 transition-colors duration-700 ${
         theme === 'dark'
           ? 'bg-gradient-to-b from-neutral-900/50 via-neutral-950 to-neutral-950'
-          : 'bg-gradient-to-b from-amber-50/30 via-stone-50 to-stone-50'
+          : 'bg-gradient-to-b from-[#F3EDE4]/30 via-[#FAF6F1] to-[#FAF6F1]'
       }`} />
       
       <motion.div 
@@ -192,17 +192,17 @@ const Skills = () => {
         {/* Section Header */}
         <motion.div variants={itemVariants} className="mb-10 text-center md:mb-16">
           <span className={`block mb-3 text-xs font-medium tracking-wider uppercase md:text-sm md:mb-4 transition-colors duration-700 ${
-            theme === 'dark' ? 'text-teal-400' : 'text-teal-600'
+            theme === 'dark' ? 'text-teal-400' : 'text-[#B8704B]'
           }`}>
             Technical Expertise
           </span>
           <h2 className={`text-3xl tracking-tight font-editorial-ultralight sm:text-4xl md:text-6xl lg:text-7xl transition-colors duration-700 ${
-            theme === 'dark' ? 'text-white' : 'text-stone-800'
+            theme === 'dark' ? 'text-white' : 'text-[#3D3229]'
           }`}>
             Skills
           </h2>
           <p className={`max-w-xl mx-auto mt-4 text-base md:mt-6 md:text-lg transition-colors duration-700 ${
-            theme === 'dark' ? 'text-neutral-500' : 'text-stone-500'
+            theme === 'dark' ? 'text-neutral-500' : 'text-[#8C7B6B]'
           }`}>
             Technologies I use to bring ideas to life
           </p>
@@ -227,7 +227,7 @@ const Skills = () => {
                 className={`h-full p-6 transition-all border duration-400 rounded-2xl group hover:shadow-lg ${
                   theme === 'dark'
                     ? 'border-neutral-800 bg-neutral-900/30 hover:border-teal-500/20 hover:bg-neutral-900/50 hover:shadow-teal-500/5'
-                    : 'border-stone-300 bg-stone-100/80 hover:border-teal-400/50 hover:bg-stone-100 hover:shadow-teal-500/10'
+                    : 'border-[#E5DCD1] bg-[#F3EDE4]/80 hover:border-[#B8704B]/50 hover:bg-[#F3EDE4] hover:shadow-[#B8704B]/10'
                 }`}
                 style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
               >
@@ -237,7 +237,7 @@ const Skills = () => {
                     className={`p-2.5 rounded-xl transition-colors duration-300 ${
                       theme === 'dark'
                         ? 'bg-neutral-800 text-teal-400 group-hover:bg-teal-500/10'
-                        : 'bg-stone-200 text-teal-600 group-hover:bg-teal-500/10'
+                        : 'bg-[#EBE3D9] text-[#B8704B] group-hover:bg-[#B8704B]/10'
                     }`}
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.2, ease: premiumEase }}
@@ -245,7 +245,7 @@ const Skills = () => {
                     {category.icon}
                   </motion.div>
                   <h3 className={`text-xl font-editorial-regular transition-colors duration-700 ${
-                    theme === 'dark' ? 'text-white' : 'text-stone-800'
+                    theme === 'dark' ? 'text-white' : 'text-[#3D3229]'
                   }`}>
                     {category.title}
                   </h3>
@@ -269,14 +269,14 @@ const Skills = () => {
                         <span className={`text-sm transition-colors duration-300 ${
                           theme === 'dark' 
                             ? 'text-neutral-300 group-hover/skill:text-teal-400'
-                            : 'text-stone-600 group-hover/skill:text-teal-600'
+                            : 'text-[#6B5D4D] group-hover/skill:text-[#B8704B]'
                         }`}>
                           {skill.name}
                         </span>
                         <span className={`text-xs px-2 py-0.5 rounded-full transition-all duration-300 ${
                           theme === 'dark'
                             ? 'text-neutral-500 bg-neutral-800 group-hover/skill:bg-teal-500/10 group-hover/skill:text-teal-400'
-                            : 'text-stone-500 bg-stone-200 group-hover/skill:bg-teal-500/10 group-hover/skill:text-teal-600'
+                            : 'text-[#8C7B6B] bg-[#EBE3D9] group-hover/skill:bg-[#B8704B]/10 group-hover/skill:text-[#B8704B]'
                         }`}>
                           {skill.level}
                         </span>

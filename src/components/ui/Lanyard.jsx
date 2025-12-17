@@ -5,13 +5,14 @@ import { Canvas, extend, useFrame } from '@react-three/fiber';
 import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei';
 import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphericalJoint } from '@react-three/rapier';
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
-import { useThemeActions } from '../../context/ThemeContext';
+import { useTheme, useThemeActions } from '../../context/ThemeContext';
 
 // Asset imports
 import cardGLB from '../../assets/lanyard/card.glb';
 import lanyard from '../../assets/lanyard/lanyard.png';
-// Using the og-image.png from public folder for consistency across all platforms
-const profilePic = '/og-image.png';
+// Using different profile images based on theme for better visual consistency
+const profilePicDark = '/og-image.png';
+const profilePicLight = '/og-yogiraj-light-theme.png';
 
 import * as THREE from 'three';
 import './Lanyard.css';
@@ -47,12 +48,53 @@ function createRoundedRectGeometry(width, height, radius) {
   return geometry;
 }
 
+// Create a rounded border frame geometry (ring shape)
+function createRoundedBorderGeometry(width, height, radius, borderWidth) {
+  // Outer shape
+  const outerShape = new THREE.Shape();
+  const ox = -width / 2;
+  const oy = -height / 2;
+  
+  outerShape.moveTo(ox + radius, oy);
+  outerShape.lineTo(ox + width - radius, oy);
+  outerShape.quadraticCurveTo(ox + width, oy, ox + width, oy + radius);
+  outerShape.lineTo(ox + width, oy + height - radius);
+  outerShape.quadraticCurveTo(ox + width, oy + height, ox + width - radius, oy + height);
+  outerShape.lineTo(ox + radius, oy + height);
+  outerShape.quadraticCurveTo(ox, oy + height, ox, oy + height - radius);
+  outerShape.lineTo(ox, oy + radius);
+  outerShape.quadraticCurveTo(ox, oy, ox + radius, oy);
+  
+  // Inner hole (slightly smaller)
+  const innerWidth = width - borderWidth * 2;
+  const innerHeight = height - borderWidth * 2;
+  const innerRadius = Math.max(radius - borderWidth, 0.01);
+  const ix = -innerWidth / 2;
+  const iy = -innerHeight / 2;
+  
+  const holePath = new THREE.Path();
+  holePath.moveTo(ix + innerRadius, iy);
+  holePath.lineTo(ix + innerWidth - innerRadius, iy);
+  holePath.quadraticCurveTo(ix + innerWidth, iy, ix + innerWidth, iy + innerRadius);
+  holePath.lineTo(ix + innerWidth, iy + innerHeight - innerRadius);
+  holePath.quadraticCurveTo(ix + innerWidth, iy + innerHeight, ix + innerWidth - innerRadius, iy + innerHeight);
+  holePath.lineTo(ix + innerRadius, iy + innerHeight);
+  holePath.quadraticCurveTo(ix, iy + innerHeight, ix, iy + innerHeight - innerRadius);
+  holePath.lineTo(ix, iy + innerRadius);
+  holePath.quadraticCurveTo(ix, iy, ix + innerRadius, iy);
+  
+  outerShape.holes.push(holePath);
+  
+  return new THREE.ShapeGeometry(outerShape);
+}
+
 const Lanyard = memo(function Lanyard({ 
   position, 
   gravity, 
   fov, 
   transparent = true,
-  isMobile = false 
+  isMobile = false,
+  onDrag = null 
 }) {
   const [loaded, setLoaded] = useState(false);
   const wrapperRef = useRef(null);
@@ -88,7 +130,7 @@ const Lanyard = memo(function Lanyard({
       >
         <ambientLight intensity={Math.PI} />
         <Physics gravity={actualGravity} timeStep={1 / 60} interpolate={true}>
-          <Band isMobile={isMobile} position={position} />
+          <Band isMobile={isMobile} position={position} onDrag={onDrag} />
         </Physics>
         <Environment blur={0.75}>
           {/* ... [Keep Lightformers exactly as is] ... */}
@@ -102,56 +144,79 @@ const Lanyard = memo(function Lanyard({
   );
 });
 
-function Band({ maxSpeed = 35, minSpeed = 5, isMobile = false }) {
+function Band({ maxSpeed = 35, minSpeed = 5, isMobile = false, onDrag = null }) {
   const band = useRef(), fixed = useRef(), j1 = useRef(), j2 = useRef(), j3 = useRef(), card = useRef();
   const vec = new THREE.Vector3(), ang = new THREE.Vector3(), rot = new THREE.Vector3(), dir = new THREE.Vector3();
   const segmentProps = { type: 'dynamic', canSleep: false, colliders: false, angularDamping: 4, linearDamping: 4 };
   const { nodes, materials } = useGLTF(cardGLB);
   const texture = useTexture(lanyard);
-  const profileTexture = useTexture(profilePic);
+  const { theme } = useTheme();
   const { toggleTheme } = useThemeActions();
   
-  // Configure profile texture for proper scaling without stretching
+  // Load both profile textures upfront for smooth crossfade transition
+  const profileTextureDark = useTexture(profilePicDark);
+  const profileTextureLight = useTexture(profilePicLight);
+  
+  // Refs for smooth opacity crossfade animation
+  const frontMeshDarkRef = useRef();
+  const frontMeshLightRef = useRef();
+  const targetOpacity = useRef({ dark: 1, light: 0 });
+  const currentOpacity = useRef({ dark: 1, light: 0 });
+  
+  // Configure both profile textures for proper scaling without stretching
   // Card geometry: 0.85 width x 0.95 height
   useMemo(() => {
     const cardWidth = 0.85;
     const cardHeight = 0.95;
     const cardAspect = cardWidth / cardHeight; // ~0.89 (portrait card)
     
-    // Get actual image dimensions from the loaded texture
-    const imgWidth = profileTexture.image?.width || 1;
-    const imgHeight = profileTexture.image?.height || 1;
-    const imageAspect = imgWidth / imgHeight;
-    
-    profileTexture.flipY = true;
-    profileTexture.center.set(0.5, 0.5);
-    profileTexture.rotation = 0;
-    
-    // Object-fit: cover - scale to fill card while maintaining aspect ratio
-    let repeatX, repeatY;
-    if (imageAspect > cardAspect) {
-      // Image is wider - fit by height, crop width
-      repeatX = cardAspect / imageAspect;
-      repeatY = 1;
+    [profileTextureDark, profileTextureLight].forEach((profileTexture) => {
+      // Get actual image dimensions from the loaded texture
+      const imgWidth = profileTexture.image?.width || 1;
+      const imgHeight = profileTexture.image?.height || 1;
+      const imageAspect = imgWidth / imgHeight;
+      
+      profileTexture.flipY = true;
+      profileTexture.center.set(0.5, 0.5);
+      profileTexture.rotation = 0;
+      
+      // Object-fit: cover - scale to fill card while maintaining aspect ratio
+      let repeatX, repeatY;
+      if (imageAspect > cardAspect) {
+        // Image is wider - fit by height, crop width
+        repeatX = cardAspect / imageAspect;
+        repeatY = 1;
+      } else {
+        // Image is taller - fit by width, crop height
+        repeatX = 1;
+        repeatY = imageAspect / cardAspect;
+      }
+      
+      profileTexture.repeat.set(repeatX, repeatY);
+      // Center the cropped area, with adjustments to center face properly
+      profileTexture.offset.set(
+        (1 - repeatX) / 2 - 0.04, // Shift right to center face
+        (1 - repeatY) / 2 + 0.02
+      );
+      profileTexture.wrapS = profileTexture.wrapT = THREE.ClampToEdgeWrapping;
+      profileTexture.needsUpdate = true;
+    });
+  }, [profileTextureDark, profileTextureLight]);
+  
+  // Update target opacity when theme changes
+  useEffect(() => {
+    if (theme === 'light') {
+      targetOpacity.current = { dark: 0, light: 1 };
     } else {
-      // Image is taller - fit by width, crop height
-      repeatX = 1;
-      repeatY = imageAspect / cardAspect;
+      targetOpacity.current = { dark: 1, light: 0 };
     }
-    
-    profileTexture.repeat.set(repeatX, repeatY);
-    // Center the cropped area, with adjustments to center face properly
-    // Positive X offset shifts image left (shows more of the right side)
-    // Negative X offset shifts image right (shows more of the left side)
-    profileTexture.offset.set(
-      (1 - repeatX) / 2 - 0.04, // Shift right to center face
-      (1 - repeatY) / 2 + 0.02
-    );
-    profileTexture.wrapS = profileTexture.wrapT = THREE.ClampToEdgeWrapping;
-    profileTexture.needsUpdate = true;
-  }, [profileTexture]);
+  }, [theme]);
   
   const roundedCardGeometry = useMemo(() => createRoundedRectGeometry(0.85, 0.95, 0.06), []);
+  const borderFrameGeometry = useMemo(() => createRoundedBorderGeometry(0.87, 0.97, 0.065, 0.025), []);
+  
+  // Theme-aware border color
+  const borderColor = theme === 'light' ? '#8B7355' : '#C0C0C0';
   
   const [curve] = useState(() => new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]));
   const [dragged, drag] = useState(false);
@@ -208,6 +273,21 @@ function Band({ maxSpeed = 35, minSpeed = 5, isMobile = false }) {
       rot.copy(card.current.rotation());
       card.current.setAngvel({ x: ang.x * 0.98, y: ang.y - rot.y * 0.08, z: ang.z * 0.98 });
     }
+    
+    // Smooth crossfade animation for profile image transition
+    const lerpSpeed = 4; // Adjust for faster/slower transition
+    currentOpacity.current.dark += (targetOpacity.current.dark - currentOpacity.current.dark) * smoothDelta * lerpSpeed;
+    currentOpacity.current.light += (targetOpacity.current.light - currentOpacity.current.light) * smoothDelta * lerpSpeed;
+    
+    // Update material opacity
+    if (frontMeshDarkRef.current?.material) {
+      frontMeshDarkRef.current.material.opacity = currentOpacity.current.dark;
+      frontMeshDarkRef.current.material.transparent = true;
+    }
+    if (frontMeshLightRef.current?.material) {
+      frontMeshLightRef.current.material.opacity = currentOpacity.current.light;
+      frontMeshLightRef.current.material.transparent = true;
+    }
   });
 
   curve.curveType = 'chordal';
@@ -221,9 +301,9 @@ function Band({ maxSpeed = 35, minSpeed = 5, isMobile = false }) {
         <RigidBody position={[1, 0, 0]} ref={j2} {...segmentProps}><BallCollider args={[0.1]} /></RigidBody>
         <RigidBody position={[1.5, 0, 0]} ref={j3} {...segmentProps}><BallCollider args={[0.1]} /></RigidBody>
         <RigidBody position={[2, 0, 0]} ref={card} {...segmentProps} type={dragged ? 'kinematicPosition' : 'dynamic'}>
-          <CuboidCollider args={[0.95, 1.0, 0.01]} />
+          <CuboidCollider args={[1.0, 1.05, 0.01]} />
           <group
-            scale={2.25}
+            scale={2.4}
             position={[0, -1.2, 0]}
             onPointerOver={() => hover(true)}
             onPointerOut={() => hover(false)}
@@ -243,15 +323,64 @@ function Band({ maxSpeed = 35, minSpeed = 5, isMobile = false }) {
               drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())));
               setDragStartY(e.nativeEvent.offsetY / e.nativeEvent.target.clientHeight * 2 - 1);
               setHasTriggeredTheme(false);
+              // Notify parent that drag started
+              if (onDrag) onDrag();
             }}
           >
             <mesh geometry={nodes.clip.geometry} material={materials.metal} material-roughness={0.3} />
             <mesh geometry={nodes.clamp.geometry} material={materials.metal} />
-            <mesh position={[0, 0.47, 0.005]} geometry={roundedCardGeometry}>
-              <meshPhysicalMaterial map={profileTexture} color="#cccccc" map-anisotropy={16} clearcoat={isMobile ? 0 : 0.5} clearcoatRoughness={0.15} roughness={0.2} metalness={0.05} />
+            {/* Dark theme profile image */}
+            <mesh ref={frontMeshDarkRef} position={[0, 0.47, 0.005]} geometry={roundedCardGeometry}>
+              <meshPhysicalMaterial 
+                map={profileTextureDark} 
+                color="#cccccc" 
+                map-anisotropy={16} 
+                clearcoat={isMobile ? 0 : 0.5} 
+                clearcoatRoughness={0.15} 
+                roughness={0.2} 
+                metalness={0.05} 
+                transparent={true}
+                opacity={1}
+                depthWrite={true}
+              />
+            </mesh>
+            {/* Light theme profile image (overlaid for crossfade) */}
+            <mesh ref={frontMeshLightRef} position={[0, 0.47, 0.0051]} geometry={roundedCardGeometry}>
+              <meshPhysicalMaterial 
+                map={profileTextureLight} 
+                color="#cccccc" 
+                map-anisotropy={16} 
+                clearcoat={isMobile ? 0 : 0.5} 
+                clearcoatRoughness={0.15} 
+                roughness={0.2} 
+                metalness={0.05} 
+                transparent={true}
+                opacity={0}
+                depthWrite={false}
+              />
+            </mesh>
+            {/* Front border frame */}
+            <mesh position={[0, 0.47, 0.006]} geometry={borderFrameGeometry}>
+              <meshPhysicalMaterial 
+                color={borderColor} 
+                metalness={0.7} 
+                roughness={0.25} 
+                clearcoat={isMobile ? 0 : 0.4} 
+                clearcoatRoughness={0.1}
+              />
             </mesh>
             <mesh position={[0, 0.47, -0.005]} rotation={[0, Math.PI, 0]} geometry={roundedCardGeometry}>
-              <meshPhysicalMaterial color="#1a1a2e" clearcoat={isMobile ? 0 : 0.3} clearcoatRoughness={0.2} roughness={0.4} metalness={0.1} />
+              <meshPhysicalMaterial color={theme === 'light' ? '#f5f0e8' : '#1a1a2e'} clearcoat={isMobile ? 0 : 0.3} clearcoatRoughness={0.2} roughness={0.4} metalness={0.1} />
+            </mesh>
+            {/* Back border frame */}
+            <mesh position={[0, 0.47, -0.006]} rotation={[0, Math.PI, 0]} geometry={borderFrameGeometry}>
+              <meshPhysicalMaterial 
+                color={borderColor} 
+                metalness={0.7} 
+                roughness={0.25} 
+                clearcoat={isMobile ? 0 : 0.4} 
+                clearcoatRoughness={0.1}
+              />
             </mesh>
           </group>
         </RigidBody>

@@ -147,13 +147,13 @@ const Contact = () => {
       )}
 
       <section ref={ref} id="contact" className={`relative px-4 py-16 overflow-hidden sm:px-6 md:py-32 md:px-8 transition-colors duration-700 ${
-        theme === 'dark' ? 'bg-neutral-950' : 'bg-stone-50'
+        theme === 'dark' ? 'bg-neutral-950' : 'bg-[#FAF6F1]'
       }`}>
       {/* Subtle background */}
       <div className={`absolute inset-0 transition-colors duration-700 ${
         theme === 'dark'
           ? 'bg-gradient-to-b from-neutral-900/50 via-neutral-950 to-neutral-950'
-          : 'bg-gradient-to-b from-amber-50/30 via-stone-50 to-stone-50'
+          : 'bg-gradient-to-b from-[#F3EDE4]/30 via-[#FAF6F1] to-[#FAF6F1]'
       }`} />
       
       <motion.div 
@@ -166,17 +166,17 @@ const Contact = () => {
         {/* Section Header */}
         <motion.div variants={itemVariants} className="mb-10 text-center md:mb-16">
           <span className={`block mb-3 text-xs font-medium tracking-wider uppercase md:text-sm md:mb-4 transition-colors duration-700 ${
-            theme === 'dark' ? 'text-teal-400' : 'text-teal-600'
+            theme === 'dark' ? 'text-teal-400' : 'text-[#B8704B]'
           }`}>
             Let's Connect
           </span>
           <h2 className={`text-3xl tracking-tight font-editorial-ultralight sm:text-4xl md:text-6xl lg:text-7xl transition-colors duration-700 ${
-            theme === 'dark' ? 'text-white' : 'text-stone-800'
+            theme === 'dark' ? 'text-white' : 'text-[#3D3229]'
           }`}>
             Get In Touch
           </h2>
           <p className={`max-w-xl mx-auto mt-4 text-base md:mt-6 md:text-lg transition-colors duration-700 ${
-            theme === 'dark' ? 'text-neutral-500' : 'text-stone-500'
+            theme === 'dark' ? 'text-neutral-500' : 'text-[#8C7B6B]'
           }`}>
             Have a project in mind? Let's create something extraordinary together.
           </p>
@@ -189,13 +189,13 @@ const Contact = () => {
               className={`p-8 transition-all duration-500 border rounded-2xl ${
                 theme === 'dark'
                   ? 'border-neutral-800 bg-neutral-900/30 hover:border-neutral-700'
-                  : 'border-stone-300 bg-stone-100/80 hover:border-stone-400'
+                  : 'border-[#E5DCD1] bg-[#F3EDE4]/80 hover:border-[#C4B5A5]'
               }`}
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.4, ease: premiumEase }}
             >
               <h3 className={`mb-6 text-2xl font-editorial-regular transition-colors duration-700 ${
-                theme === 'dark' ? 'text-white' : 'text-stone-800'
+                theme === 'dark' ? 'text-white' : 'text-[#3D3229]'
               }`}>Send a Message</h3>
               
               <form onSubmit={handleSubmit} className="space-y-5">
@@ -211,8 +211,8 @@ const Contact = () => {
                     htmlFor="name" 
                     className={`block mb-2 text-sm transition-all duration-300 ${
                       focusedField === 'name' 
-                        ? (theme === 'dark' ? 'text-teal-400' : 'text-teal-600')
-                        : (theme === 'dark' ? 'text-neutral-400' : 'text-stone-500')
+                        ? (theme === 'dark' ? 'text-teal-400' : 'text-[#B8704B]')
+                        : (theme === 'dark' ? 'text-neutral-400' : 'text-[#8C7B6B]')
                     }`}
                     animate={{ x: focusedField === 'name' ? 5 : 0 }}
                     transition={{ duration: 0.3 }}
@@ -231,15 +231,15 @@ const Contact = () => {
                     className={`w-full px-4 py-3 transition-all duration-300 border rounded-xl focus:outline-none ${
                       theme === 'dark'
                         ? 'text-white bg-neutral-800/50 border-neutral-700 placeholder-neutral-500'
-                        : 'text-stone-800 bg-stone-50/80 border-stone-300 placeholder-stone-400'
+                        : 'text-[#3D3229] bg-[#FAF6F1]/80 border-[#E5DCD1] placeholder-[#A89888]'
                     }`}
                     placeholder="Your name"
                     animate={{ 
                       borderColor: focusedField === 'name' 
-                        ? (theme === 'dark' ? 'rgb(45, 212, 191)' : 'rgb(20, 184, 166)')
-                        : (theme === 'dark' ? 'rgb(64, 64, 64)' : 'rgb(214, 211, 209)'),
+                        ? (theme === 'dark' ? 'rgb(45, 212, 191)' : 'rgb(184, 112, 75)')
+                        : (theme === 'dark' ? 'rgb(64, 64, 64)' : 'rgb(229, 220, 209)'),
                       boxShadow: focusedField === 'name' 
-                        ? (theme === 'dark' ? '0 0 20px rgba(45, 212, 191, 0.15)' : '0 0 20px rgba(20, 184, 166, 0.15)')
+                        ? (theme === 'dark' ? '0 0 20px rgba(45, 212, 191, 0.15)' : '0 0 20px rgba(184, 112, 75, 0.15)')
                         : 'none'
                     }}
                     transition={{ duration: 0.3 }}
@@ -258,8 +258,8 @@ const Contact = () => {
                     htmlFor="email" 
                     className={`block mb-2 text-sm transition-all duration-300 ${
                       focusedField === 'email' 
-                        ? (theme === 'dark' ? 'text-teal-400' : 'text-teal-600')
-                        : (theme === 'dark' ? 'text-neutral-400' : 'text-stone-500')
+                        ? (theme === 'dark' ? 'text-teal-400' : 'text-[#B8704B]')
+                        : (theme === 'dark' ? 'text-neutral-400' : 'text-[#8C7B6B]')
                     }`}
                     animate={{ x: focusedField === 'email' ? 5 : 0 }}
                     transition={{ duration: 0.3 }}
@@ -278,15 +278,15 @@ const Contact = () => {
                     className={`w-full px-4 py-3 transition-all duration-300 border rounded-xl focus:outline-none ${
                       theme === 'dark'
                         ? 'text-white bg-neutral-800/50 border-neutral-700 placeholder-neutral-500'
-                        : 'text-stone-800 bg-stone-50/80 border-stone-300 placeholder-stone-400'
+                        : 'text-[#3D3229] bg-[#FAF6F1]/80 border-[#E5DCD1] placeholder-[#A89888]'
                     }`}
                     placeholder="your.email@example.com"
                     animate={{ 
                       borderColor: focusedField === 'email' 
-                        ? (theme === 'dark' ? 'rgb(45, 212, 191)' : 'rgb(20, 184, 166)')
-                        : (theme === 'dark' ? 'rgb(64, 64, 64)' : 'rgb(214, 211, 209)'),
+                        ? (theme === 'dark' ? 'rgb(45, 212, 191)' : 'rgb(184, 112, 75)')
+                        : (theme === 'dark' ? 'rgb(64, 64, 64)' : 'rgb(229, 220, 209)'),
                       boxShadow: focusedField === 'email' 
-                        ? (theme === 'dark' ? '0 0 20px rgba(45, 212, 191, 0.15)' : '0 0 20px rgba(20, 184, 166, 0.15)')
+                        ? (theme === 'dark' ? '0 0 20px rgba(45, 212, 191, 0.15)' : '0 0 20px rgba(184, 112, 75, 0.15)')
                         : 'none'
                     }}
                     transition={{ duration: 0.3 }}
@@ -305,8 +305,8 @@ const Contact = () => {
                     htmlFor="message" 
                     className={`block mb-2 text-sm transition-all duration-300 ${
                       focusedField === 'message' 
-                        ? (theme === 'dark' ? 'text-teal-400' : 'text-teal-600')
-                        : (theme === 'dark' ? 'text-neutral-400' : 'text-stone-500')
+                        ? (theme === 'dark' ? 'text-teal-400' : 'text-[#B8704B]')
+                        : (theme === 'dark' ? 'text-neutral-400' : 'text-[#8C7B6B]')
                     }`}
                     animate={{ x: focusedField === 'message' ? 5 : 0 }}
                     transition={{ duration: 0.3 }}
@@ -325,15 +325,15 @@ const Contact = () => {
                     className={`w-full px-4 py-3 transition-all duration-300 border resize-none rounded-xl focus:outline-none ${
                       theme === 'dark'
                         ? 'text-white bg-neutral-800/50 border-neutral-700 placeholder-neutral-500'
-                        : 'text-stone-800 bg-stone-50/80 border-stone-300 placeholder-stone-400'
+                        : 'text-[#3D3229] bg-[#FAF6F1]/80 border-[#E5DCD1] placeholder-[#A89888]'
                     }`}
                     placeholder="Tell me about your project..."
                     animate={{ 
                       borderColor: focusedField === 'message' 
-                        ? (theme === 'dark' ? 'rgb(45, 212, 191)' : 'rgb(20, 184, 166)')
-                        : (theme === 'dark' ? 'rgb(64, 64, 64)' : 'rgb(214, 211, 209)'),
+                        ? (theme === 'dark' ? 'rgb(45, 212, 191)' : 'rgb(184, 112, 75)')
+                        : (theme === 'dark' ? 'rgb(64, 64, 64)' : 'rgb(229, 220, 209)'),
                       boxShadow: focusedField === 'message' 
-                        ? (theme === 'dark' ? '0 0 20px rgba(45, 212, 191, 0.15)' : '0 0 20px rgba(20, 184, 166, 0.15)')
+                        ? (theme === 'dark' ? '0 0 20px rgba(45, 212, 191, 0.15)' : '0 0 20px rgba(184, 112, 75, 0.15)')
                         : 'none'
                     }}
                     transition={{ duration: 0.3 }}
@@ -351,7 +351,7 @@ const Contact = () => {
                   className={`flex items-center justify-center w-full gap-2 px-6 py-3 text-sm font-medium transition-all duration-300 rounded-full disabled:opacity-50 ${
                     theme === 'dark'
                       ? 'bg-white text-neutral-900 hover:bg-teal-400'
-                      : 'bg-stone-800 text-stone-50 hover:bg-teal-600'
+                      : 'bg-[#3D3229] text-[#FAF6F1] hover:bg-[#B8704B]'
                   }`}
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
@@ -402,20 +402,20 @@ const Contact = () => {
             <div className={`p-6 border rounded-2xl transition-colors duration-700 ${
               theme === 'dark' 
                 ? 'border-neutral-800 bg-neutral-900/30'
-                : 'border-stone-300 bg-stone-100/80'
+                : 'border-[#E5DCD1] bg-[#F3EDE4]/80'
             }`}>
               <div className="flex items-center gap-3 mb-3">
                 <div className={`p-2.5 rounded-xl transition-colors duration-700 ${
-                  theme === 'dark' ? 'bg-neutral-800 text-teal-400' : 'bg-stone-200 text-teal-600'
+                  theme === 'dark' ? 'bg-neutral-800 text-teal-400' : 'bg-[#EBE3D9] text-[#B8704B]'
                 }`}>
                   <MapPin className="w-5 h-5" />
                 </div>
                 <h3 className={`text-xl font-editorial-regular transition-colors duration-700 ${
-                  theme === 'dark' ? 'text-white' : 'text-stone-800'
+                  theme === 'dark' ? 'text-white' : 'text-[#3D3229]'
                 }`}>Location</h3>
               </div>
               <p className={`ml-12 transition-colors duration-700 ${
-                theme === 'dark' ? 'text-neutral-400' : 'text-stone-500'
+                theme === 'dark' ? 'text-neutral-400' : 'text-[#8C7B6B]'
               }`}>Mumbai, Maharashtra, India</p>
             </div>
 
@@ -423,10 +423,10 @@ const Contact = () => {
             <div className={`p-6 border rounded-2xl transition-colors duration-700 ${
               theme === 'dark' 
                 ? 'border-neutral-800 bg-neutral-900/30'
-                : 'border-stone-300 bg-stone-100/80'
+                : 'border-[#E5DCD1] bg-[#F3EDE4]/80'
             }`}>
               <h3 className={`mb-6 text-xl font-editorial-regular transition-colors duration-700 ${
-                theme === 'dark' ? 'text-white' : 'text-stone-800'
+                theme === 'dark' ? 'text-white' : 'text-[#3D3229]'
               }`}>Connect With Me</h3>
               <div className="grid grid-cols-2 gap-3">
                 {socialLinks.map((link, idx) => (
@@ -440,18 +440,18 @@ const Contact = () => {
                     className={`flex items-center gap-3 p-4 transition-all duration-300 border rounded-xl group ${
                       theme === 'dark'
                         ? 'border-neutral-800 bg-neutral-800/30 hover:border-teal-500/30 hover:bg-neutral-800/50'
-                        : 'border-stone-300 bg-stone-200/50 hover:border-teal-400/50 hover:bg-stone-200/80'
+                        : 'border-[#E5DCD1] bg-[#EBE3D9]/50 hover:border-[#B8704B]/50 hover:bg-[#EBE3D9]/80'
                     }`}
                   >
                     <span className={`transition-colors duration-300 ${
                       theme === 'dark' 
                         ? 'text-neutral-400 group-hover:text-teal-400'
-                        : 'text-stone-500 group-hover:text-teal-600'
+                        : 'text-[#8C7B6B] group-hover:text-[#B8704B]'
                     }`}>
                       {link.icon}
                     </span>
                     <span className={`text-sm transition-colors duration-700 ${
-                      theme === 'dark' ? 'text-neutral-300' : 'text-stone-600'
+                      theme === 'dark' ? 'text-neutral-300' : 'text-[#6B5D4D]'
                     }`}>{link.name}</span>
                   </motion.a>
                 ))}
@@ -462,24 +462,24 @@ const Contact = () => {
             <div className={`p-6 border rounded-2xl transition-colors duration-700 ${
               theme === 'dark' 
                 ? 'border-neutral-800 bg-neutral-900/30'
-                : 'border-stone-300 bg-stone-100/80'
+                : 'border-[#E5DCD1] bg-[#F3EDE4]/80'
             }`}>
               <h3 className={`mb-4 text-xl font-editorial-regular transition-colors duration-700 ${
-                theme === 'dark' ? 'text-white' : 'text-stone-800'
+                theme === 'dark' ? 'text-white' : 'text-[#3D3229]'
               }`}>Quick Info</h3>
               <div className={`space-y-3 text-sm transition-colors duration-700 ${
-                theme === 'dark' ? 'text-neutral-400' : 'text-stone-500'
+                theme === 'dark' ? 'text-neutral-400' : 'text-[#8C7B6B]'
               }`}>
                 <p className="flex items-center gap-2">
-                  <ArrowRight className={`w-4 h-4 ${theme === 'dark' ? 'text-teal-500' : 'text-teal-500'}`} />
+                  <ArrowRight className={`w-4 h-4 ${theme === 'dark' ? 'text-teal-500' : 'text-[#B8704B]'}`} />
                   Open to full‑time & freelance
                 </p>
                 <p className="flex items-center gap-2">
-                  <ArrowRight className={`w-4 h-4 ${theme === 'dark' ? 'text-teal-500' : 'text-teal-500'}`} />
+                  <ArrowRight className={`w-4 h-4 ${theme === 'dark' ? 'text-teal-500' : 'text-[#B8704B]'}`} />
                   Prefer email or LinkedIn for opportunities
                 </p>
                 <p className="flex items-center gap-2">
-                  <ArrowRight className={`w-4 h-4 ${theme === 'dark' ? 'text-teal-500' : 'text-teal-500'}`} />
+                  <ArrowRight className={`w-4 h-4 ${theme === 'dark' ? 'text-teal-500' : 'text-[#B8704B]'}`} />
                   Typically replies within 24 hours
                 </p>
               </div>

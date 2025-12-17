@@ -19,7 +19,7 @@ export const AnimatedThemeToggler = memo(({ className = '' }) => {
           backdrop-blur-sm border
           ${theme === 'dark' 
             ? 'bg-neutral-900/80 border-neutral-700/50 text-neutral-200 hover:bg-neutral-800/80' 
-            : 'bg-stone-100/90 border-stone-400/50 text-stone-800 hover:bg-stone-200/90'
+            : 'bg-[#F3EDE4]/90 border-[#C4B5A5]/50 text-[#3D3229] hover:bg-[#EBE3D9]/90'
           }
         `}
         whileHover={{ scale: 1.05 }}

@@ -113,13 +113,13 @@ const Projects = () => {
 
   return (
     <section ref={ref} id="projects" className={`relative px-4 py-16 overflow-hidden sm:px-6 md:py-32 md:px-8 transition-colors duration-700 ${
-      theme === 'dark' ? 'bg-neutral-900/50' : 'bg-amber-50/50'
+      theme === 'dark' ? 'bg-neutral-900/50' : 'bg-[#F3EDE4]/50'
     }`}>
       {/* Subtle background */}
       <div className={`absolute inset-0 transition-colors duration-700 ${
         theme === 'dark'
           ? 'bg-gradient-to-b from-neutral-950 via-neutral-900/50 to-neutral-950'
-          : 'bg-gradient-to-b from-stone-50 via-amber-50/30 to-stone-50'
+          : 'bg-gradient-to-b from-[#FAF6F1] via-[#F3EDE4]/30 to-[#FAF6F1]'
       }`} />
       
       <motion.div 
@@ -132,17 +132,17 @@ const Projects = () => {
         {/* Section Header */}
         <motion.div variants={itemVariants} className="mb-10 text-center md:mb-16">
           <span className={`block mb-3 text-xs font-medium tracking-wider uppercase md:text-sm md:mb-4 transition-colors duration-700 ${
-            theme === 'dark' ? 'text-teal-400' : 'text-teal-600'
+            theme === 'dark' ? 'text-teal-400' : 'text-[#B8704B]'
           }`}>
             Portfolio
           </span>
           <h2 className={`text-3xl tracking-tight font-editorial-ultralight sm:text-4xl md:text-6xl lg:text-7xl transition-colors duration-700 ${
-            theme === 'dark' ? 'text-white' : 'text-stone-800'
+            theme === 'dark' ? 'text-white' : 'text-[#3D3229]'
           }`}>
             Featured Projects
           </h2>
           <p className={`max-w-xl mx-auto mt-4 text-base md:mt-6 md:text-lg transition-colors duration-700 ${
-            theme === 'dark' ? 'text-neutral-500' : 'text-stone-500'
+            theme === 'dark' ? 'text-neutral-500' : 'text-[#8C7B6B]'
           }`}>
             A selection of my recent work
           </p>
@@ -165,7 +165,7 @@ const Projects = () => {
                   className={`h-full overflow-hidden transition-all border rounded-xl md:rounded-2xl duration-400 hover:shadow-lg ${
                     theme === 'dark'
                       ? 'border-neutral-800 bg-neutral-900/30 hover:border-teal-500/20 hover:shadow-teal-500/5'
-                      : 'border-stone-300 bg-stone-100/90 hover:border-teal-400/50 hover:shadow-teal-500/10'
+                      : 'border-[#E5DCD1] bg-[#F3EDE4]/90 hover:border-[#B8704B]/50 hover:shadow-[#B8704B]/10'
                   }`}
                   style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
                 >
@@ -192,7 +192,7 @@ const Projects = () => {
                           />
                           {/* Play button overlay for mobile */}
                           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <div className="flex items-center justify-center rounded-full w-14 h-14 bg-teal-500/90 backdrop-blur-sm">
+                            <div className="flex items-center justify-center rounded-full w-14 h-14 bg-[#B8704B]/90 backdrop-blur-sm">
                               <Play className="w-6 h-6 text-white fill-white ml-0.5" />
                             </div>
                           </div>
@@ -220,20 +220,20 @@ const Projects = () => {
                       className={`absolute inset-0 transition-opacity duration-300 pointer-events-none bg-gradient-to-t via-30% to-transparent ${
                         theme === 'dark' 
                           ? 'from-neutral-900 via-neutral-900/30 opacity-60 group-hover/video:opacity-80'
-                          : 'from-stone-100 via-stone-100/30 opacity-50 group-hover/video:opacity-70'
+                          : 'from-[#F3EDE4] via-[#F3EDE4]/30 opacity-50 group-hover/video:opacity-70'
                       }`}
                     />
                     {/* Hover overlay with view text - Desktop only */}
                     {!isMobile && (
                       <div
                         className={`absolute inset-0 flex items-center justify-center backdrop-blur-sm opacity-0 group-hover/video:opacity-100 transition-opacity duration-300 pointer-events-none ${
-                          theme === 'dark' ? 'bg-teal-500/10' : 'bg-teal-500/10'
+                          theme === 'dark' ? 'bg-teal-500/10' : 'bg-[#B8704B]/10'
                         }`}
                       >
                         <span className={`px-4 py-2 text-sm font-medium border rounded-full ${
                           theme === 'dark'
                             ? 'text-white bg-neutral-900/80 border-neutral-700'
-                            : 'text-stone-800 bg-stone-50/90 border-stone-400'
+                            : 'text-[#3D3229] bg-[#FAF6F1]/90 border-[#C4B5A5]'
                         }`}>
                           Watch Demo
                         </span>
@@ -248,20 +248,20 @@ const Projects = () => {
                       className={`mb-1 text-xl transition-colors duration-300 md:text-2xl font-editorial-regular ${
                         theme === 'dark' 
                           ? 'text-white group-hover:text-teal-400'
-                          : 'text-stone-800 group-hover:text-teal-600'
+                          : 'text-[#3D3229] group-hover:text-[#B8704B]'
                       }`}
                     >
                       {project.title}
                     </h3>
                     <p className={`mb-2 text-xs md:text-sm md:mb-3 transition-colors duration-700 ${
-                      theme === 'dark' ? 'text-teal-400' : 'text-teal-600'
+                      theme === 'dark' ? 'text-teal-400' : 'text-[#B8704B]'
                     }`}>
                       {project.subtitle}
                     </p>
                     
                     {/* Description */}
                     <p className={`mb-3 text-xs leading-relaxed md:text-sm md:mb-4 line-clamp-2 transition-colors duration-700 ${
-                      theme === 'dark' ? 'text-neutral-400' : 'text-stone-500'
+                      theme === 'dark' ? 'text-neutral-400' : 'text-[#8C7B6B]'
                     }`}>
                       {project.description}
                     </p>
@@ -274,7 +274,7 @@ const Projects = () => {
                           className={`flex-shrink-0 px-2 py-0.5 md:px-2.5 md:py-1 text-[10px] md:text-xs rounded-full border transition-all duration-300 ${
                             theme === 'dark'
                               ? 'text-neutral-400 bg-neutral-800/50 border-neutral-700/50 hover:border-teal-500/30 hover:text-teal-400'
-                              : 'text-stone-500 bg-stone-200/80 border-stone-300 hover:border-teal-400/50 hover:text-teal-600'
+                              : 'text-[#8C7B6B] bg-[#EBE3D9]/80 border-[#E5DCD1] hover:border-[#B8704B]/50 hover:text-[#B8704B]'
                           }`}
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={isInView ? { opacity: 1, scale: 1 } : {}}
@@ -299,7 +299,7 @@ const Projects = () => {
                         className={`flex items-center justify-center gap-1 md:gap-1.5 px-2 md:px-3 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-medium transition-all duration-300 hover:scale-[1.03] hover:-translate-y-0.5 active:scale-95 cursor-pointer ${
                           theme === 'dark'
                             ? 'bg-white text-neutral-900 hover:bg-teal-400'
-                            : 'bg-stone-800 text-stone-50 hover:bg-teal-600'
+                            : 'bg-[#3D3229] text-[#FAF6F1] hover:bg-[#B8704B]'
                         }`}
                       >
                         <Github className="w-3.5 h-3.5 md:w-4 md:h-4" />
@@ -313,7 +313,7 @@ const Projects = () => {
                         className={`flex items-center justify-center gap-1 md:gap-1.5 px-2 md:px-3 py-2 md:py-2.5 border rounded-full text-xs md:text-sm font-medium transition-all duration-300 hover:scale-[1.03] hover:-translate-y-0.5 active:scale-95 cursor-pointer ${
                           theme === 'dark'
                             ? 'border-neutral-700 text-neutral-300 hover:border-teal-500/50 hover:text-teal-400'
-                            : 'border-stone-400 text-stone-600 hover:border-teal-500/50 hover:text-teal-600'
+                            : 'border-[#C4B5A5] text-[#6B5D4D] hover:border-[#B8704B]/50 hover:text-[#B8704B]'
                         }`}
                       >
                         <ExternalLink className="w-3.5 h-3.5 md:w-4 md:h-4" />
@@ -324,7 +324,7 @@ const Projects = () => {
                     {/* Project Reactions */}
                     <div 
                       className={`pt-4 mt-4 border-t md:pt-5 md:mt-5 transition-colors duration-700 ${
-                        theme === 'dark' ? 'border-neutral-800/50' : 'border-stone-300/80'
+                        theme === 'dark' ? 'border-neutral-800/50' : 'border-[#E5DCD1]/80'
                       }`}
                     >
                       <ProjectReactionBar 
@@ -342,7 +342,7 @@ const Projects = () => {
               <SpotlightCard 
                 key={idx} 
                 className="h-full"
-                spotlightColor={theme === 'dark' ? 'rgba(20, 184, 166, 0.15)' : 'rgba(20, 184, 166, 0.1)'}
+                spotlightColor={theme === 'dark' ? 'rgba(20, 184, 166, 0.15)' : 'rgba(184, 112, 75, 0.1)'}
               >
                 <ProjectCard />
               </SpotlightCard>
@@ -360,7 +360,7 @@ const Projects = () => {
             target="_blank"
             rel="noopener noreferrer"
             className={`inline-flex items-center gap-2 transition-colors duration-300 group/link ${
-              theme === 'dark' ? 'text-neutral-400 hover:text-teal-400' : 'text-stone-500 hover:text-teal-600'
+              theme === 'dark' ? 'text-neutral-400 hover:text-teal-400' : 'text-[#8C7B6B] hover:text-[#B8704B]'
             }`}
             whileHover={{ x: 5 }}
             transition={{ duration: 0.3 }}
