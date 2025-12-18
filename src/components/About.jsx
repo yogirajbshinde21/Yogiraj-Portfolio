@@ -193,14 +193,14 @@ const About = () => {
           {/* Lanyard 3D Card */}
           <motion.div 
             ref={lanyardRef}
-            className="relative z-50 flex justify-center lg:col-span-5"
+            className="flex justify-center lg:col-span-5"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7, ease: premiumEase }}
           >
             <div 
-              className="relative w-full z-50"
+              className="relative w-full"
               style={{
                 height: isMobile ? '320px' : '400px',
                 maxWidth: isMobile ? '100%' : '100%'
